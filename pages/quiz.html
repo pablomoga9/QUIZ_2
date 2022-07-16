@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1>¿Quien quiere ser milloneti?</h1>
+    <main id="quiz" class="Box">
+
+
+
+        <form class="quizCont">
+
+            <h2 id="question">Pregunta</h2>
+
+            <ul>
+                <li>
+                    <input class="answer" id="answer1" type="radio" name="answer">
+                    <label for="answer1" id="label1">Respuesta A</label>
+                </li>
+
+                <li>
+                    <input class="answer" id="answer2" type="radio" name="answer">
+                    <label for="answer2" id="label2">Respuesta B</label>
+                </li>
+
+                <li>
+                    <input class="answer" id="answer3" type="radio" name="answer">
+                    <label for="answer3" id="label3">Respuesta C</label>
+                </li>
+
+                <li>
+                    <input class="answer" id="answer4" type="radio" name="answer">
+                    <label for="answer4" id="label4">Respuesta D</label>
+                </li>
+
+            </ul>
+
+        </form>
+    </main>
+    <audio id="intro" src="../assets/lets_play.mp3"></audio>
+    <audio id="millionaire" autoplay="true" src="../assets/Millionaire.mp3"></audio>
+    <audio id="audio_wrong" src="../assets/wrong_answer.mp3"></audio>
+    <audio id="audio_correct" src="../assets/correct_answer.mp3"></audio>
+    <button id="submit">Siguiente</button>
+    <script src="../script.js"></script>
+</body>
+
+</html>
