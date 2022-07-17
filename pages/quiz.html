@@ -13,32 +13,32 @@
 </head>
 
 <body>
-    <h1>¿Quien quiere ser milloneti?</h1>
+    <!-- <h1>¿Cuantas preguntas eres capaz de responder correctamente?</h1> -->
     <main id="quiz" class="Box">
 
 
 
-        <form class="quizCont">
+        <form id="quizCont">
 
             <h2 id="question">Pregunta</h2>
 
             <ul>
-                <li>
+                <li id="list1">
                     <input class="answer" id="answer1" type="radio" name="answer">
                     <label for="answer1" id="label1">Respuesta A</label>
                 </li>
 
-                <li>
+                <li id="list2">
                     <input class="answer" id="answer2" type="radio" name="answer">
                     <label for="answer2" id="label2">Respuesta B</label>
                 </li>
 
-                <li>
+                <li id="list3">
                     <input class="answer" id="answer3" type="radio" name="answer">
                     <label for="answer3" id="label3">Respuesta C</label>
                 </li>
 
-                <li>
+                <li id="list4">
                     <input class="answer" id="answer4" type="radio" name="answer">
                     <label for="answer4" id="label4">Respuesta D</label>
                 </li>
@@ -47,11 +47,8 @@
 
         </form>
     </main>
-    <audio id="intro" src="../assets/lets_play.mp3"></audio>
-    <audio id="millionaire" autoplay="true" src="../assets/Millionaire.mp3"></audio>
-    <audio id="audio_wrong" src="../assets/wrong_answer.mp3"></audio>
-    <audio id="audio_correct" src="../assets/correct_answer.mp3"></audio>
     <button id="submit">Siguiente</button>
+    
     <script src="../script.js"></script>
 </body>
 

@@ -7,10 +7,15 @@ const answB = document.getElementById("label2");  // selector de todas las respu
 const answC = document.getElementById("label3");  // selector de todas las respuestas C
 const answD = document.getElementById("label4");  // selector de todas las respuestas D
 const submitButton = document.getElementById("submit");  // Enviando respuesta
-const millionaire = document.getElementById("millionaire")
-const wrong = document.getElementById("audio_wrong")
-const correct = document.getElementById("audio_correct")
-millionaire.volume = 0.6
+const list1 = document.getElementById("list1");
+const list2 = document.getElementById("list2");
+const list3 = document.getElementById("list3");
+const list4 = document.getElementById("list4");
+const input1 = document.getElementById("answer1");
+const input2 = document.getElementById("answer2");
+const input3 = document.getElementById("answer3");
+const input4 = document.getElementById("answer4"); //
+
 
 //Array formado por objetos, cada objeto corresponde a cada pregunta, incluyendo: la pregunta, las respuestas y la respuesta correcta.
 const quizData = [
@@ -111,9 +116,29 @@ function loadQuiz() {
     answB.innerText = currentDataQuestion.answer2;        // Texto en el DOM answer 2 = Answer 2 actual
     answC.innerText = currentDataQuestion.answer3;        // Texto en el DOM answer 3 = Answer 3 actual
     answD.innerText = currentDataQuestion.answer4;        // Texto en el DOM answer 4 = Answer 4 actual
-    const audio = new Audio('../assets/Millionaire.mp3');
+;
     
 };
+
+list1.addEventListener('click', () => {
+    list1.style.backgroundColor = white;
+    input1.click()
+    
+})
+
+list2.addEventListener('click', () => {
+    input2.click()
+    list2.style.backgroundColor = white;
+})
+
+list3.addEventListener('click', () => {
+    input3.click()
+    list3.style.backgroundColor = white;
+})
+
+list4.addEventListener('click', () => {
+    input4.click()
+})
 
 function getSelected() {                          
     let answer;                                   
@@ -129,7 +154,12 @@ function deselectAns() {
     answElems.forEach(answElem => answElem.checked = false);    
 };
 
-submitButton.addEventListener('click', () => {       
+submitButton.addEventListener('click', () => {
+    answer1.click();
+})
+
+submitButton.addEventListener('click', () => {    
+
     const answer = getSelected();                     
     if(answer) {
        if(answer === quizData[currentQuestion].correct) {     
@@ -174,3 +204,7 @@ submitButton.addEventListener('click', () => {
             correct.play()
             correct.volume = 0.5;
 }}})
+
+
+//EFECTOS VISUALES
+
