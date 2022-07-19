@@ -208,7 +208,7 @@ button {
         font-size: 1.5rem;
         position: relative;
         top: 20px;
-        left: 30px;
+        left: 0;
         width: 670px;
         overflow: wrap;
         padding: 0;
