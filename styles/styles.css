@@ -40,7 +40,7 @@
 
 body {
     background: rgb(111, 168, 255);
-    color: rgb(228, 232, 0);
+    color: rgb(233, 187, 61);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,15 +48,8 @@ body {
     margin: 0px;
 }
 
-#main {
-    background-color: rgb(255, 255, 255);
-    color: rgb(201, 194, 0);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    margin: 0px;
+#quiz {
+    margin-top: 50px;
 }
 
 .Box {
@@ -80,6 +73,7 @@ body {
 }
 
 #question {
+    font-size: 1.5em;
     position: relative;
     right: 20px;
     width: 240px;
@@ -92,6 +86,7 @@ ul {
     flex-direction: column;
     align-items: center;
     list-style-type: none;
+    padding-left: 0;
    /* padding-left: 0;
     position: relative;
     right: 40px;
@@ -101,8 +96,8 @@ ul {
 ul li {
     width: 100%;
     height: 50px;
-    font-size: 1.5rem;
-    margin: 1rem 1rem;
+    font-size: 1rem;
+    margin: 1rem 0.5rem;
     background-color: rgb(123, 123, 123);
     border-radius: 15px;
 }
@@ -210,7 +205,7 @@ button {
     }
 
     #question {
-        font-size: 2rem;
+        font-size: 1.5rem;
         position: relative;
         top: 20px;
         left: 30px;
@@ -224,7 +219,7 @@ button {
         padding-left: 0;
         position: absolute;
         left: 50px;
-        top: 60px;
+        top: 80px;
         bottom: 50px;
         width: 690px;
     }
