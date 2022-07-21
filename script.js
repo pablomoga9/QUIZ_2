@@ -20,9 +20,11 @@ let counterQuestion = 0;
 //hacer función contador para cuando pulses boton cambie de numero y 
 //enganche el siguiente numero del array
 
+let score = 0;      // puntuación
+
 
 async function loadQuestions() {
-
+console.log("Esto es el score "+score);
     deselectAns();
     function randomizeAnswers() {
         let nums = [1, 2, 3, 4],
@@ -57,7 +59,6 @@ async function loadQuestions() {
     function clickAllList() {
         list1.addEventListener('click', () => {
             input1.click()
-            console.log("hola");
         })
         list2.addEventListener('click', () => {
             input2.click()
@@ -69,9 +70,14 @@ async function loadQuestions() {
             input4.click()
         })
     }clickAllList()
+
     let correctAns = document.getElementById(`label${arrRandom[3]}`);
-    console.log(correctAns);
-    
+
+    function addPoint (){correctAns.addEventListener('click', ()=>{
+        score++
+        correctAns.removeEventListener('click', () => {})
+    })
+} addPoint()
     } 
 
   loadQuestions()
@@ -84,7 +90,6 @@ function deselectAns() {
 
 function countAnswer() {
         submitButton.addEventListener('click', () => {
-
         ++counterQuestion                              
         answElems.forEach(answElem => {  
         if(answElem.checked) {
@@ -131,7 +136,6 @@ function colourAnswer() {
 
 
 // let currentQuestion = 0;    //pregunta actual
-// let score = 0;      // puntuación
 
 // loadQuiz();     //Cargando el quiz
 
