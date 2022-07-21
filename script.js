@@ -20,18 +20,10 @@ let counterQuestion = 0;
 //hacer función contador para cuando pulses boton cambie de numero y 
 //enganche el siguiente numero del array
 
+
 async function loadQuestions() {
 
-    function countAnswer() {
-        submitButton.addEventListener('click', () => {
-
-            ++counterQuestion
-            // console.log(counterQuestion);
-        })
-    }
-    countAnswer()
-
-
+    deselectAns();
     function randomizeAnswers() {
         let nums = [1, 2, 3, 4],
         rndNums = [],
@@ -47,25 +39,96 @@ async function loadQuestions() {
     }
     let arrRandom = randomizeAnswers()
 
-    
-
-    const response = fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&token=86960a028236048ec5c47129eaf8dd8944f16e1c2d73d98c588f5c1e662d8909')
+ 
+        
+    console.log(arrRandom[3]);
+    const response = fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
         .then(response => response.json())
-        .then(data => {                                              
+        .then(data => {       
+                                                  
             document.getElementById("question").innerHTML = data.results[`${counterQuestion}`].question
             document.getElementById(`label${arrRandom[0]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[0]
             document.getElementById(`label${arrRandom[1]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[1]
             document.getElementById(`label${arrRandom[2]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[2]
             document.getElementById(`label${arrRandom[3]}`).innerHTML = data.results[`${counterQuestion}`].correct_answer
-        });
-    function refreshPage() {
-        submitButton.addEventListener('click', () => {
-            location.reload()
-        })
 
-    } refreshPage()
-}
-loadQuestions()
+        });
+
+    function clickAllList() {
+        list1.addEventListener('click', () => {
+            input1.click()
+            console.log("hola");
+        })
+        list2.addEventListener('click', () => {
+            input2.click()
+        })
+        list3.addEventListener('click', () => {
+            input3.click()
+        })
+        list4.addEventListener('click', () => {
+            input4.click()
+        })
+    }clickAllList()
+    let correctAns = document.getElementById(`label${arrRandom[3]}`);
+    console.log(correctAns);
+    
+    } 
+
+  loadQuestions()
+
+
+
+function deselectAns() {            
+    answElems.forEach(answElem => answElem.checked = false);    
+};
+
+function countAnswer() {
+        submitButton.addEventListener('click', () => {
+
+        ++counterQuestion                              
+        answElems.forEach(answElem => {  
+        if(answElem.checked) {
+        loadQuestions()                   
+            };
+        });
+    })
+}countAnswer() 
+
+function colourAnswer() {
+    list1.addEventListener('click', () =>{
+        list1.classList.add('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+    list2.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.add('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+    list3.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list3.classList.add('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+    list4.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list4.classList.add('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+    })
+    submitButton.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+        }
+    colourAnswer()
+
+
 
 // let currentQuestion = 0;    //pregunta actual
 // let score = 0;      // puntuación
@@ -74,7 +137,7 @@ loadQuestions()
 
 
 // function loadQuiz() {
-//     deselectAns();      //función para las respuestas no están seleccionadas
+//           //función para las respuestas no están seleccionadas
 //     const currentDataQuestion = quizData[currentQuestion];      // Llamando a la posición del array
 //     quesElem.innerText = currentDataQuestion.question;    // Texto en el DOM question = Pregunta actual
 //     answA.innerText = currentDataQuestion.answer1;        // Texto en el DOM answer 1 = Answer 1 actual

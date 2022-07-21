@@ -98,8 +98,12 @@ ul li {
     height: 50px;
     font-size: 1rem;
     margin: 1rem 0.5rem;
-    background-color: rgb(123, 123, 123);
+    background-color: grey;
     border-radius: 15px;
+}
+
+.selectedAnswer{
+    background-color: rgb(96, 52, 240);
 }
 
 input {
