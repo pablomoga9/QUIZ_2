@@ -31,20 +31,6 @@ const firebaseConfig = {
     appId: "1:12766186834:web:0fd3f639bb88bb9abebe8b"
   };
 
-
-let score = 0;      // puntuación
-
-
-async function loadQuestions() {
-console.log("Esto es el score "+score);
-    deselectAns();
-    function randomizeAnswers() {
-        let nums = [1, 2, 3, 4],
-        rndNums = [],
-            i = nums.length,
-            j = 0;
-
-
   firebase.initializeApp(firebaseConfig);
 
 
@@ -99,16 +85,113 @@ console.log("Esto es el score "+score);
       });
   };
 
+   //Sign in
 
-  document.getElementById("form1").addEventListener("submit",function(event){
-    event.preventDefault();
-    
-    let email = event.target.elements.email.value;
-    let pass = event.target.elements.pass.value;
-    let pass2 = event.target.elements.pass2.value;
+   const signInUser = (email,password,nick) =>{
+    let datesArr = [];//Array para meter todas las fechas de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+    let scoresArr = [];////Array para meter todas las puntuaciones de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+        // Signed in
+        localStorage.setItem("usuario", JSON.stringify(nick));
+        let user = userCredential.user;
+        console.log(`se ha logado ${user.email} ID:${user.uid}`)
+        alert(`se ha logado ${user.email} ID:${user.uid}`)
+        console.log(user);
+       
+        const readDate = () => {//Buscamos el jugador que tenga el nickname con el cual hemos iniciado sesión
+            db.collection("puntuaciones")
+          .where("playerName", "==",nick )//Comprobamos dentro de la colección "puntuaciones" dónde coincide la propiedad "playerName" con el nick que traemos del usuario logeado
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((docu) => {
+                
+                // datesArr.push(docu.date);//Por cada documento con el nick indicado, pusheamos al array la fecha correspondiente a ese documento
+                console.log(docu.data().date);
+                datesArr.push(docu.data().date);
+            })
+          });
+      };
+      readDate();
+        const readScore = ()=>{//Hacemos lo mismo pero ahora para obtener un array de todas las puntuaciones que tenga un jugador con el "nick" que le damos
+            db.collection("puntuaciones")
+            .where("playerName", "==", nick)
+            .get()
+            .then((querySnapshot)=>{
+                querySnapshot.forEach((docu)=>{
+                    console.log(docu.data().puntuacion);
+                   scoresArr.push(docu.data().puntuacion);
+                })
+            });
+        };
+        readScore();
+        console.log(datesArr);
+        console.log(scoresArr);
+        // console.log(scoresArr);
+        // console.log(datesArr);
+        var canv = document.getElementById("myChart").getContext("2d");
+        var weatherChart = new Chart(canv,{//Creamos un chart con el array de las fechas que hemos sacado y las puntuaciones de 
+            type:"bar",
+            data:{
+                // labels:[datesArr[0],datesArr[1],datesArr[2]],
+                labels:["Fecha1","Fecha2","Fecha3","Fecha4"] ,
+                datasets:[{
+                    label: "Puntuación",
+                    // data:[scoresArr[0],scoresArr[1],scoresArr[2]]
+                   data: [1,2,4,5]
+                }]
+            }
+        })
+
+
+
+      })}
+
+
+      document.getElementById("form1").addEventListener("submit",function(event){
+        event.preventDefault();
+        
+        let email = event.target.elements.email.value;
+        let pass = event.target.elements.pass.value;
+        let pass2 = event.target.elements.pass2.value;
+      
+        pass===pass2?signUpUser(email,pass):alert("error password");
+      })
+
+      document.getElementById("form2").addEventListener("submit",function(event){
+        event.preventDefault();
+        let email = event.target.elements.email2.value;
+        
+        let pass = event.target.elements.pass3.value;
+        signInUser(email,pass,email.split('@')[0])
+    })
+
+    //Test de subida de puntuaciones con nombre a Firestore
+
+function addScore(){
+    let fechaActual = new Date(Date.now()).toDateString();
+    createScore({
+        playerName: localStorage.getItem("usuario"),
+        puntuacion: score,
+        date: fechaActual
+    })
+}
+
+// LOGICA DEL QUIZ
+
+async function loadQuestions() {
+console.log("Esto es el score "+score);
+    deselectAns();
+    function randomizeAnswers() {
+        let nums = [1, 2, 3, 4],
+        rndNums = [],
+            i = nums.length,
+            j = 0;
+
+
   
-    pass===pass2?signUpUser(email,pass):alert("error password");
-  })
+
+  
 
     function clickAllList() {
         list1.addEventListener('click', () => {
@@ -134,72 +217,12 @@ console.log("Esto es el score "+score);
 } addPoint()
     } 
 
-
+}
         //Local Storage NickName
 
   
 
-        //Sign in
-
-        const signInUser = (email,password,nick) =>{
-            let datesArr = [];//Array para meter todas las fechas de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
-            let scoresArr = [];////Array para meter todas las puntuaciones de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
-            firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in
-                localStorage.setItem("usuario", JSON.stringify(nick));
-                let user = userCredential.user;
-                console.log(`se ha logado ${user.email} ID:${user.uid}`)
-                alert(`se ha logado ${user.email} ID:${user.uid}`)
-                console.log(user);
-               
-                const readDate = () => {//Buscamos el jugador que tenga el nickname con el cual hemos iniciado sesión
-                    db.collection("puntuaciones")
-                  .where("playerName", "==",nick )//Comprobamos dentro de la colección "puntuaciones" dónde coincide la propiedad "playerName" con el nick que traemos del usuario logeado
-                  .get()
-                  .then((querySnapshot) => {
-                    querySnapshot.forEach((docu) => {
-                        
-                        // datesArr.push(docu.date);//Por cada documento con el nick indicado, pusheamos al array la fecha correspondiente a ese documento
-                        console.log(docu.data().date);
-                        datesArr.push(docu.data().date);
-                    })
-                  });
-              };
-              readDate();
-                const readScore = ()=>{//Hacemos lo mismo pero ahora para obtener un array de todas las puntuaciones que tenga un jugador con el "nick" que le damos
-                    db.collection("puntuaciones")
-                    .where("playerName", "==", nick)
-                    .get()
-                    .then((querySnapshot)=>{
-                        querySnapshot.forEach((docu)=>{
-                            console.log(docu.data().puntuacion);
-                           scoresArr.push(docu.data().puntuacion);
-                        })
-                    });
-                };
-                readScore();
-                console.log(datesArr);
-                console.log(scoresArr);
-                // console.log(scoresArr);
-                // console.log(datesArr);
-                var canv = document.getElementById("myChart").getContext("2d");
-                var weatherChart = new Chart(canv,{//Creamos un chart con el array de las fechas que hemos sacado y las puntuaciones de 
-                    type:"bar",
-                    data:{
-                        // labels:[datesArr[0],datesArr[1],datesArr[2]],
-                        labels:["Fecha1","Fecha2","Fecha3","Fecha4"] ,
-                        datasets:[{
-                            label: "Puntuación",
-                            // data:[scoresArr[0],scoresArr[1],scoresArr[2]]
-                           data: [1,2,4,5]
-                        }]
-                    }
-                })
-
-
-
-              })
+     
            
 
 function countAnswer() {
@@ -247,13 +270,19 @@ function colourAnswer() {
 
         }
 
-        document.getElementById("form2").addEventListener("submit",function(event){
-            event.preventDefault();
-            let email = event.target.elements.email2.value;
-            
-            let pass = event.target.elements.pass3.value;
-            signInUser(email,pass,email.split('@')[0])
-        })
+       
+
+
+
+
+
+
+
+
+
+
+
+        
 
         //Logout
 
@@ -263,16 +292,7 @@ function colourAnswer() {
 
 
 
-//Test de subida de puntuaciones con nombre a Firestore
 
-function addScore(){
-    let fechaActual = new Date(Date.now()).toDateString();
-    createScore({
-        playerName: localStorage.getItem("usuario"),
-        puntuacion: score,
-        date: fechaActual
-    })
-}
 
 
 //hacer función contador para cuando pulses boton cambie de numero y 
