@@ -16,9 +16,21 @@ const input2 = document.getElementById("answer2");
 const input3 = document.getElementById("answer3");
 const input4 = document.getElementById("answer4"); //
 let counterQuestion = 0;
+let score = 0; 
 
-//hacer función contador para cuando pulses boton cambie de numero y 
-//enganche el siguiente numero del array
+
+
+//FIRABASE
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCsj-mu-bLS8NIECiFe2hopq4ZnItCl10Y",
+    authDomain: "quiz-45209.firebaseapp.com",
+    projectId: "quiz-45209",
+    storageBucket: "quiz-45209.appspot.com",
+    messagingSenderId: "12766186834",
+    appId: "1:12766186834:web:0fd3f639bb88bb9abebe8b"
+  };
+
 
 let score = 0;      // puntuación
 
@@ -32,29 +44,71 @@ console.log("Esto es el score "+score);
             i = nums.length,
             j = 0;
 
-        while (i--) {
-            j = Math.floor(Math.random() * (i + 1));
-            rndNums.push(nums[j]);
-            nums.splice(j, 1);
-        }
-        return rndNums
-    }
-    let arrRandom = randomizeAnswers()
 
- 
-        
-    console.log(arrRandom[3]);
-    const response = fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
-        .then(response => response.json())
-        .then(data => {       
-                                                  
-            document.getElementById("question").innerHTML = data.results[`${counterQuestion}`].question
-            document.getElementById(`label${arrRandom[0]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[0]
-            document.getElementById(`label${arrRandom[1]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[1]
-            document.getElementById(`label${arrRandom[2]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[2]
-            document.getElementById(`label${arrRandom[3]}`).innerHTML = data.results[`${counterQuestion}`].correct_answer
+  firebase.initializeApp(firebaseConfig);
 
+
+  const db = firebase.firestore();//Referencia a la base datos
+
+//   let provider = new firebase.auth.GoogleAuthProvider();//Posibilidad de logear con google
+
+
+  const createUser = (user) => {
+    db.collection("usuarios")
+      .add(user)
+      .then((docRef) => console.log("Usuario añadido con ID: ", docRef.id))
+      .catch((error) => console.error("Error adding document: ", error));
+  };
+
+  const createScore = (user) => {
+    db.collection("puntuaciones")
+      .add(user)
+      .then((docRef) => console.log("Puntuación añadida con ID: ", docRef.id))
+      .catch((error) => console.error("Error adding document: ", error));
+  };
+
+
+    //SIGN UP Y SIGN IN
+
+
+    let nickName = "";
+
+
+    //Sign Up
+  const signUpUser = (email, password) => {
+    
+      firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        let user = userCredential.user;
+        console.log(`se ha registrado ${user.email} ID:${user.uid}`)
+        alert(`se ha registrado ${user.email} ID:${user.uid}`)
+        // ...
+        // Guarda El usuario en Firestore
+        createUser({
+          id:user.uid,
+          email:user.email
         });
+  
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log("Error en el sistema"+error.message);
+      });
+  };
+
+
+  document.getElementById("form1").addEventListener("submit",function(event){
+    event.preventDefault();
+    
+    let email = event.target.elements.email.value;
+    let pass = event.target.elements.pass.value;
+    let pass2 = event.target.elements.pass2.value;
+  
+    pass===pass2?signUpUser(email,pass):alert("error password");
+  })
 
     function clickAllList() {
         list1.addEventListener('click', () => {
@@ -80,13 +134,73 @@ console.log("Esto es el score "+score);
 } addPoint()
     } 
 
-  loadQuestions()
+
+        //Local Storage NickName
+
+  
+
+        //Sign in
+
+        const signInUser = (email,password,nick) =>{
+            let datesArr = [];//Array para meter todas las fechas de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+            let scoresArr = [];////Array para meter todas las puntuaciones de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+            firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+                localStorage.setItem("usuario", JSON.stringify(nick));
+                let user = userCredential.user;
+                console.log(`se ha logado ${user.email} ID:${user.uid}`)
+                alert(`se ha logado ${user.email} ID:${user.uid}`)
+                console.log(user);
+               
+                const readDate = () => {//Buscamos el jugador que tenga el nickname con el cual hemos iniciado sesión
+                    db.collection("puntuaciones")
+                  .where("playerName", "==",nick )//Comprobamos dentro de la colección "puntuaciones" dónde coincide la propiedad "playerName" con el nick que traemos del usuario logeado
+                  .get()
+                  .then((querySnapshot) => {
+                    querySnapshot.forEach((docu) => {
+                        
+                        // datesArr.push(docu.date);//Por cada documento con el nick indicado, pusheamos al array la fecha correspondiente a ese documento
+                        console.log(docu.data().date);
+                        datesArr.push(docu.data().date);
+                    })
+                  });
+              };
+              readDate();
+                const readScore = ()=>{//Hacemos lo mismo pero ahora para obtener un array de todas las puntuaciones que tenga un jugador con el "nick" que le damos
+                    db.collection("puntuaciones")
+                    .where("playerName", "==", nick)
+                    .get()
+                    .then((querySnapshot)=>{
+                        querySnapshot.forEach((docu)=>{
+                            console.log(docu.data().puntuacion);
+                           scoresArr.push(docu.data().puntuacion);
+                        })
+                    });
+                };
+                readScore();
+                console.log(datesArr);
+                console.log(scoresArr);
+                // console.log(scoresArr);
+                // console.log(datesArr);
+                var canv = document.getElementById("myChart").getContext("2d");
+                var weatherChart = new Chart(canv,{//Creamos un chart con el array de las fechas que hemos sacado y las puntuaciones de 
+                    type:"bar",
+                    data:{
+                        // labels:[datesArr[0],datesArr[1],datesArr[2]],
+                        labels:["Fecha1","Fecha2","Fecha3","Fecha4"] ,
+                        datasets:[{
+                            label: "Puntuación",
+                            // data:[scoresArr[0],scoresArr[1],scoresArr[2]]
+                           data: [1,2,4,5]
+                        }]
+                    }
+                })
 
 
 
-function deselectAns() {            
-    answElems.forEach(answElem => answElem.checked = false);    
-};
+              })
+           
 
 function countAnswer() {
         submitButton.addEventListener('click', () => {
@@ -130,18 +244,95 @@ function colourAnswer() {
         list3.classList.remove('selectedAnswer')
         list4.classList.remove('selectedAnswer')
     })
+
         }
-    colourAnswer()
+
+        document.getElementById("form2").addEventListener("submit",function(event){
+            event.preventDefault();
+            let email = event.target.elements.email2.value;
+            
+            let pass = event.target.elements.pass3.value;
+            signInUser(email,pass,email.split('@')[0])
+        })
+
+        //Logout
+
+        // document.getElementById("salir").addEventListener("click", signOut);
+        
 
 
+
+
+//Test de subida de puntuaciones con nombre a Firestore
+
+function addScore(){
+    let fechaActual = new Date(Date.now()).toDateString();
+    createScore({
+        playerName: localStorage.getItem("usuario"),
+        puntuacion: score,
+        date: fechaActual
+    })
+}
+
+
+//hacer función contador para cuando pulses boton cambie de numero y 
+//enganche el siguiente numero del array
+
+// async function loadQuestions() {
+
+//     function countAnswer() {
+//         submitButton.addEventListener('click', () => {
+
+//             ++counterQuestion
+//             // console.log(counterQuestion);
+//         })
+//     }
+//     countAnswer()
+
+
+//     function randomizeAnswers() {
+//         let nums = [1, 2, 3, 4],
+//         rndNums = [],
+//             i = nums.length,
+//             j = 0;
+
+//         while (i--) {
+//             j = Math.floor(Math.random() * (i + 1));
+//             rndNums.push(nums[j]);
+//             nums.splice(j, 1);
+//         }
+//         return rndNums
+//     }
+//     let arrRandom = randomizeAnswers()
+
+    
+
+//     const response = fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&token=86960a028236048ec5c47129eaf8dd8944f16e1c2d73d98c588f5c1e662d8909')
+//         .then(response => response.json())
+//         .then(data => {                                              
+//             document.getElementById("question").innerHTML = data.results[`${counterQuestion}`].question
+//             document.getElementById(`label${arrRandom[0]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[0]
+//             document.getElementById(`label${arrRandom[1]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[1]
+//             document.getElementById(`label${arrRandom[2]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[2]
+//             document.getElementById(`label${arrRandom[3]}`).innerHTML = data.results[`${counterQuestion}`].correct_answer
+//         });
+//     function refreshPage() {
+//         submitButton.addEventListener('click', () => {
+//             location.reload()
+//         })
+
+//     } refreshPage()
+// }
+// loadQuestions()
 
 // let currentQuestion = 0;    //pregunta actual
+
 
 // loadQuiz();     //Cargando el quiz
 
 
 // function loadQuiz() {
-//           //función para las respuestas no están seleccionadas
+//     deselectAns();      //función para las respuestas no están seleccionadas
 //     const currentDataQuestion = quizData[currentQuestion];      // Llamando a la posición del array
 //     quesElem.innerText = currentDataQuestion.question;    // Texto en el DOM question = Pregunta actual
 //     answA.innerText = currentDataQuestion.answer1;        // Texto en el DOM answer 1 = Answer 1 actual
