@@ -19,6 +19,7 @@ let counterQuestion = 0;
 let score = 0; 
 
 
+
 //FIRABASE
 
 const firebaseConfig = {
@@ -29,6 +30,19 @@ const firebaseConfig = {
     messagingSenderId: "12766186834",
     appId: "1:12766186834:web:0fd3f639bb88bb9abebe8b"
   };
+
+
+let score = 0;      // puntuación
+
+
+async function loadQuestions() {
+console.log("Esto es el score "+score);
+    deselectAns();
+    function randomizeAnswers() {
+        let nums = [1, 2, 3, 4],
+        rndNums = [],
+            i = nums.length,
+            j = 0;
 
 
   firebase.initializeApp(firebaseConfig);
@@ -85,6 +99,7 @@ const firebaseConfig = {
       });
   };
 
+
   document.getElementById("form1").addEventListener("submit",function(event){
     event.preventDefault();
     
@@ -94,6 +109,31 @@ const firebaseConfig = {
   
     pass===pass2?signUpUser(email,pass):alert("error password");
   })
+
+    function clickAllList() {
+        list1.addEventListener('click', () => {
+            input1.click()
+        })
+        list2.addEventListener('click', () => {
+            input2.click()
+        })
+        list3.addEventListener('click', () => {
+            input3.click()
+        })
+        list4.addEventListener('click', () => {
+            input4.click()
+        })
+    }clickAllList()
+
+    let correctAns = document.getElementById(`label${arrRandom[3]}`);
+
+    function addPoint (){correctAns.addEventListener('click', ()=>{
+        score++
+        correctAns.removeEventListener('click', () => {})
+    })
+} addPoint()
+    } 
+
 
         //Local Storage NickName
 
@@ -158,13 +198,53 @@ const firebaseConfig = {
                 })
 
 
+
               })
-            //   .catch((error) => {
-            //     let errorCode = error.code;
-            //     let errorMessage = error.message;
-            //     console.log(errorCode)
-            //     console.log(errorMessage)
-            //   });
+           
+
+function countAnswer() {
+        submitButton.addEventListener('click', () => {
+        ++counterQuestion                              
+        answElems.forEach(answElem => {  
+        if(answElem.checked) {
+        loadQuestions()                   
+            };
+        });
+    })
+}countAnswer() 
+
+function colourAnswer() {
+    list1.addEventListener('click', () =>{
+        list1.classList.add('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+    list2.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.add('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+    list3.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list3.classList.add('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+    list4.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list4.classList.add('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+    })
+    submitButton.addEventListener('click', () =>{
+        list1.classList.remove('selectedAnswer')
+        list2.classList.remove('selectedAnswer')
+        list3.classList.remove('selectedAnswer')
+        list4.classList.remove('selectedAnswer')
+    })
+
         }
 
         document.getElementById("form2").addEventListener("submit",function(event){
@@ -246,7 +326,7 @@ function addScore(){
 // loadQuestions()
 
 // let currentQuestion = 0;    //pregunta actual
-      // puntuación
+
 
 // loadQuiz();     //Cargando el quiz
 
