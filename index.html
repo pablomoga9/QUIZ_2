@@ -5,17 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
 </head>
 <body id="body_index">
     <div id="start_container">
         <h1 id="Comenzar">BridgeQuiz!</h1>
+        <h3>Formulario de Registro</h3>
+        <form id ="form1" action="#" method="POST">
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" placeholder="Introduce email..."><br>
+            <label for="pass">Password:</label><br>
+            <input type="password" id="pass" name="pass" placeholder="Introduce password..."><br>
+            <label for="pass2">Repite password:</label><br>
+            <input type="password" id="pass2" name="pass2" placeholder="Repite password..."><br>
+            <input type="submit" value="Enviar">
+        </form>
+    
+    
+        <h3>Formulario de Login</h3>
+        <form id ="form2" action="#" method="POST">
+            <label for="email2">Email:</label><br>
+            <input type="email" id="email2" name="email2" placeholder="Introduce email..."><br>
+            <label for="pass3">Password:</label><br>
+            <input type="password" id="pass3" name="pass3" placeholder="Introduce password..."><br>
+            <input type="submit" value="Enviar">
+        </form>
     <a href="./pages/quiz.html"><button id="click">Empezar</button></a>
     </div>
+
+
+    <div id="start_container">
+        <canvas id="myChart" width="300px"></canvas>
+    </div>
     
+    <!-- ------------------------------------------------ -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+   
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
 <script src="./script.js"></script>
 </body>
 </html>
