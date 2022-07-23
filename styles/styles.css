@@ -1,3 +1,4 @@
+
 * {
     text-align: center;
     box-sizing: border-box;
@@ -39,8 +40,8 @@
 }
 
 body {
-    background: radial-gradient(rgb(189, 173, 0), rgb(34, 0, 113), rgb(0, 0, 0));
-    color: rgb(228, 232, 0);
+    background: rgb(111, 168, 255);
+    color: rgb(233, 187, 61);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,21 +49,14 @@ body {
     margin: 0px;
 }
 
-#main {
-    background-color: rgb(255, 255, 255);
-    color: rgb(201, 194, 0);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    margin: 0px;
+#quiz {
+    margin-top: 50px;
 }
 
 .Box {
     background-color: rgb(22, 14, 36);
     background-size: cover;
-    border: 10px rgb(228, 232, 0), ;
+    border: 10px rgb(228, 232, 0);
     border-radius: 20px;
     box-shadow: 5px 5px 5px 3px black;
     width: 300px;
@@ -72,7 +66,7 @@ body {
     top: 30px;
 }
 
-.quizCont {
+#quizCont {
     align-content: center;
     margin-top: 30px;
     margin-left: 50px;
@@ -80,6 +74,7 @@ body {
 }
 
 #question {
+    font-size: 1.5em;
     position: relative;
     right: 20px;
     width: 240px;
@@ -88,22 +83,36 @@ body {
 }
 
 ul {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
     list-style-type: none;
     padding-left: 0;
+   /* padding-left: 0;
     position: relative;
     right: 40px;
-    width: 290px;
+    width: 290px; */
 }
 
 ul li {
-    
-    font-size: 1.5rem;
-    margin: 1rem 1.5rem;
-    background-color: rgb(105, 105, 105);
-    border-radius: 30px;
+    width: 100%;
+    height: 50px;
+    font-size: 1rem;
+    margin: 1rem 0.5rem;
+    background-color: grey;
+    border-radius: 15px;
+}
+
+.selectedAnswer{
+    background-color: rgb(96, 52, 240);
+}
+
+input {
+    display:none;
 }
 
 button {
+    background:linear-gradient(90deg, #0162c8, #55e7fc);
     background-color: rgb(50, 13, 109);
     background-size: cover;
     color: #fff;
@@ -120,8 +129,6 @@ button {
     border-radius: 20px;
     transition: 0.2s;
 }
-
-
 
 #result {
     position: relative;
@@ -157,7 +164,7 @@ button {
     #click{
         text-align: center;
         text-decoration: none;
-        background-color: rgb(64, 64, 64);
+        background-color: rgb(144, 144, 144);
         background-size: cover;
         color: #fff;
         border: none;
@@ -174,8 +181,8 @@ button {
     }
 
     body {
-        background: radial-gradient(rgb(189, 173, 0), rgb(34, 0, 113), rgb(0, 0, 0));
-        color: rgb(228, 232, 0);
+        background: rgb(111, 168, 255);
+        color: rgb(233, 187, 61);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -192,7 +199,7 @@ button {
         height: 500px;
         overflow: wrap;
         position: relative;
-        top: 40px;
+        top: 80px;
     }
 
     .quizCont {
@@ -203,10 +210,10 @@ button {
     }
 
     #question {
-        font-size: 2rem;
+        font-size: 1.5rem;
         position: relative;
         top: 20px;
-        left: 30px;
+        left: 0;
         width: 670px;
         overflow: wrap;
         padding: 0;
@@ -215,15 +222,16 @@ button {
     ul {
         list-style-type: none;
         padding-left: 0;
-        position: relative;
-        left: 10px;
-        top: 25px;
+        position: absolute;
+        left: 50px;
+        top: 80px;
+        bottom: 50px;
         width: 690px;
     }
 
     ul li {
         font-size: 1.5rem;
-        margin: 1rem 1.5rem;
+        margin: 1.5rem 1.5rem;
         padding-top:5px;
         padding-bottom: 15px;
     }
@@ -237,7 +245,7 @@ button {
         font-size: 1.5rem;
         padding: 1.3rem;
         position: relative;
-        top: 90px;
+        top: 120px;
         height: 60px;
         width: 180px;
         padding: 0;
@@ -245,6 +253,10 @@ button {
         text-decoration: none;
         color: white;
         transition: 0.2s;
+    }
+
+    input {
+        display:none;
     }
 
     #click:hover {

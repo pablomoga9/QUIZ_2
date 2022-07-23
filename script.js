@@ -1,24 +1,3 @@
-//Selectores del DOM
-const quiz = document.getElementById("quiz");  //main
-const answElems = document.querySelectorAll(".answer");  // selector de todas las respuestas
-const quesElem = document.getElementById("question");  //selector de la pregunta
-const answA = document.getElementById("label1");  // selector de todas las respuestas A
-const answB = document.getElementById("label2");  // selector de todas las respuestas B
-const answC = document.getElementById("label3");  // selector de todas las respuestas C
-const answD = document.getElementById("label4");  // selector de todas las respuestas D
-const submitButton = document.getElementById("submit");  // Enviando respuesta
-const list1 = document.getElementById("list1");
-const list2 = document.getElementById("list2");
-const list3 = document.getElementById("list3");
-const list4 = document.getElementById("list4");
-const input1 = document.getElementById("answer1");
-const input2 = document.getElementById("answer2");
-const input3 = document.getElementById("answer3");
-const input4 = document.getElementById("answer4"); //
-let counterQuestion = 0;
-let score = 0; 
-
-
 
 //FIRABASE
 
@@ -148,26 +127,28 @@ const firebaseConfig = {
       })}
 
 
-      document.getElementById("form1").addEventListener("submit",function(event){
-        event.preventDefault();
+    //   document.getElementById("form1").addEventListener("submit",function(event){
+    //     event.preventDefault();
         
-        let email = event.target.elements.email.value;
-        let pass = event.target.elements.pass.value;
-        let pass2 = event.target.elements.pass2.value;
+    //     let email = event.target.elements.email.value;
+    //     let pass = event.target.elements.pass.value;
+    //     let pass2 = event.target.elements.pass2.value;
       
-        pass===pass2?signUpUser(email,pass):alert("error password");
-      })
+    //     pass===pass2?signUpUser(email,pass):alert("error password");
+    //   })
 
-      document.getElementById("form2").addEventListener("submit",function(event){
-        event.preventDefault();
-        let email = event.target.elements.email2.value;
+    //   document.getElementById("form2").addEventListener("submit",function(event){
+    //     event.preventDefault();
+    //     let email = event.target.elements.email2.value;
         
-        let pass = event.target.elements.pass3.value;
-        signInUser(email,pass,email.split('@')[0])
-    })
+    //     let pass = event.target.elements.pass3.value;
+    //     signInUser(email,pass,email.split('@')[0])
+    // })
 
     //Test de subida de puntuaciones con nombre a Firestore
 
+
+    //METER EN LA PANTALLA FINAL DEL SCORE
 function addScore(){
     let fechaActual = new Date(Date.now()).toDateString();
     createScore({
@@ -177,21 +158,127 @@ function addScore(){
     })
 }
 
-// LOGICA DEL QUIZ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//LOGICA QUIZ
+
+
+//Selectores del DOM
+const quiz = document.getElementById("quiz");  //main
+const answElems = document.querySelectorAll(".answer");  // selector de todas las respuestas
+const quesElem = document.getElementById("question");  //selector de la pregunta
+const answA = document.getElementById("label1");  // selector de todas las respuestas A
+const answB = document.getElementById("label2");  // selector de todas las respuestas B
+const answC = document.getElementById("label3");  // selector de todas las respuestas C
+const answD = document.getElementById("label4");  // selector de todas las respuestas D
+const submitButton = document.getElementById("submit");  // Enviando respuesta
+const list1 = document.getElementById("list1");
+const list2 = document.getElementById("list2");
+const list3 = document.getElementById("list3");
+const list4 = document.getElementById("list4");
+const input1 = document.getElementById("answer1");
+const input2 = document.getElementById("answer2");
+const input3 = document.getElementById("answer3");
+const input4 = document.getElementById("answer4");
+
+ //
+let counterQuestion = 0;
+
+//hacer función contador para cuando pulses boton cambie de numero y 
+//enganche el siguiente numero del array
+
+let score = 0;      // puntuación
+
+    
 
 async function loadQuestions() {
 console.log("Esto es el score "+score);
     deselectAns();
+
     function randomizeAnswers() {
         let nums = [1, 2, 3, 4],
         rndNums = [],
             i = nums.length,
             j = 0;
 
+        while (i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            rndNums.push(nums[j]);
+            nums.splice(j, 1);
+        }
+        return rndNums
+    }
+let arrRandom = randomizeAnswers()
 
-  
+    console.log(arrRandom[3]);
 
-  
+
+    const response = fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
+        .then(response => response.json())
+        .then(data => {       
+                                                  
+            document.getElementById("question").innerHTML = data.results[`${counterQuestion}`].question
+            document.getElementById(`label${arrRandom[0]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[0]
+            document.getElementById(`label${arrRandom[1]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[1]
+            document.getElementById(`label${arrRandom[2]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[2]
+            document.getElementById(`label${arrRandom[3]}`).innerHTML = data.results[`${counterQuestion}`].correct_answer
+
+        });
 
     function clickAllList() {
         list1.addEventListener('click', () => {
@@ -208,31 +295,37 @@ console.log("Esto es el score "+score);
         })
     }clickAllList()
 
-    let correctAns = document.getElementById(`label${arrRandom[3]}`);
+    const correctAns = document.getElementById(`list${arrRandom[3]}`)
 
-    function addPoint (){correctAns.addEventListener('click', ()=>{
-        score++
-        correctAns.removeEventListener('click', () => {})
-    })
+    function addPoint (){
+        correctAns.addEventListener('click', ()=>{
+        console.log("hola");
+    
+    correctAns.removeEventListener('click', () => {})
+})
 } addPoint()
+
     } 
 
-}
-        //Local Storage NickName
+  loadQuestions()
 
-  
 
-     
-           
+
+
+function deselectAns() {            
+    answElems.forEach(answElem => answElem.checked = false);    
+};
 
 function countAnswer() {
+
         submitButton.addEventListener('click', () => {
         ++counterQuestion                              
         answElems.forEach(answElem => {  
         if(answElem.checked) {
         loadQuestions()                   
-            };
+        }
         });
+
     })
 }countAnswer() 
 
@@ -267,84 +360,12 @@ function colourAnswer() {
         list3.classList.remove('selectedAnswer')
         list4.classList.remove('selectedAnswer')
     })
-
         }
+    colourAnswer()
 
-       
-
-
-
-
-
-
-
-
-
-
-
-        
-
-        //Logout
-
-        // document.getElementById("salir").addEventListener("click", signOut);
-        
-
-
-
-
-
-
-
-//hacer función contador para cuando pulses boton cambie de numero y 
-//enganche el siguiente numero del array
-
-// async function loadQuestions() {
-
-//     function countAnswer() {
-//         submitButton.addEventListener('click', () => {
-
-//             ++counterQuestion
-//             // console.log(counterQuestion);
-//         })
-//     }
-//     countAnswer()
-
-
-//     function randomizeAnswers() {
-//         let nums = [1, 2, 3, 4],
-//         rndNums = [],
-//             i = nums.length,
-//             j = 0;
-
-//         while (i--) {
-//             j = Math.floor(Math.random() * (i + 1));
-//             rndNums.push(nums[j]);
-//             nums.splice(j, 1);
-//         }
-//         return rndNums
-//     }
-//     let arrRandom = randomizeAnswers()
+ 
 
     
-
-//     const response = fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&token=86960a028236048ec5c47129eaf8dd8944f16e1c2d73d98c588f5c1e662d8909')
-//         .then(response => response.json())
-//         .then(data => {                                              
-//             document.getElementById("question").innerHTML = data.results[`${counterQuestion}`].question
-//             document.getElementById(`label${arrRandom[0]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[0]
-//             document.getElementById(`label${arrRandom[1]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[1]
-//             document.getElementById(`label${arrRandom[2]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[2]
-//             document.getElementById(`label${arrRandom[3]}`).innerHTML = data.results[`${counterQuestion}`].correct_answer
-//         });
-//     function refreshPage() {
-//         submitButton.addEventListener('click', () => {
-//             location.reload()
-//         })
-
-//     } refreshPage()
-// }
-// loadQuestions()
-
 // let currentQuestion = 0;    //pregunta actual
 
 
