@@ -1,5 +1,5 @@
 
-//FIRABASE
+// FIRABASE
 
 const firebaseConfig = {
     apiKey: "AIzaSyCsj-mu-bLS8NIECiFe2hopq4ZnItCl10Y",
@@ -149,14 +149,7 @@ const firebaseConfig = {
 
 
     //METER EN LA PANTALLA FINAL DEL SCORE
-function addScore(){
-    let fechaActual = new Date(Date.now()).toDateString();
-    createScore({
-        playerName: localStorage.getItem("usuario"),
-        puntuacion: score,
-        date: fechaActual
-    })
-}
+
 
 
 
@@ -220,7 +213,8 @@ function addScore(){
 
 //Selectores del DOM
 const quiz = document.getElementById("quiz");  //main
-const answElems = document.querySelectorAll(".answer");  // selector de todas las respuestas
+const answElems = document.querySelectorAll(".answer");
+const answList = document.querySelectorAll(".list");  // selector de todas las respuestas
 const quesElem = document.getElementById("question");  //selector de la pregunta
 const answA = document.getElementById("label1");  // selector de todas las respuestas A
 const answB = document.getElementById("label2");  // selector de todas las respuestas B
@@ -236,21 +230,33 @@ const input2 = document.getElementById("answer2");
 const input3 = document.getElementById("answer3");
 const input4 = document.getElementById("answer4");
 
- //
+
+
 let counterQuestion = 0;
 
 //hacer función contador para cuando pulses boton cambie de numero y 
 //enganche el siguiente numero del array
-
+let arrScore = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 let score = 0;      // puntuación
 
-    
+function addScore(score){
+    let fechaActual = new Date(Date.now()).toDateString();
+    createScore({
+        playerName: localStorage.getItem("usuario"),
+        puntuacion: score,
+        date: fechaActual
+    })
+}
+
+let arrAnswers = [];
+let arrRandom;
+
+let correctList;
 
 async function loadQuestions() {
 console.log("Esto es el score "+score);
-    deselectAns();
 
-    function randomizeAnswers() {
+function randomizeAnswers() {
         let nums = [1, 2, 3, 4],
         rndNums = [],
             i = nums.length,
@@ -263,51 +269,62 @@ console.log("Esto es el score "+score);
         }
         return rndNums
     }
-let arrRandom = randomizeAnswers()
+arrRandom = randomizeAnswers()  
+deselectAns();
 
-    console.log(arrRandom[3]);
+
+  
+console.log(arrRandom[3]);
 
 
-    const response = fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
+const response = await fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
         .then(response => response.json())
         .then(data => {       
-                                                  
-            document.getElementById("question").innerHTML = data.results[`${counterQuestion}`].question
-            document.getElementById(`label${arrRandom[0]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[0]
-            document.getElementById(`label${arrRandom[1]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[1]
-            document.getElementById(`label${arrRandom[2]}`).innerHTML = data.results[`${counterQuestion}`].incorrect_answers[2]
-            document.getElementById(`label${arrRandom[3]}`).innerHTML = data.results[`${counterQuestion}`].correct_answer
+          document.getElementById("question").innerHTML = data.results[`${counterQuestion}`].question
+            arrAnswers =[
+            document.getElementById(`label${arrRandom[0]}`).innerHTML = data.results[counterQuestion].incorrect_answers[0],
+            document.getElementById(`label${arrRandom[1]}`).innerHTML = data.results[counterQuestion].incorrect_answers[1],
+            document.getElementById(`label${arrRandom[2]}`).innerHTML = data.results[counterQuestion].incorrect_answers[2],
+            document.getElementById(`label${arrRandom[3]}`).innerHTML = data.results[counterQuestion].correct_answer]
+                                                   
+            return arrAnswers
+        })
 
-        });
-
-    function clickAllList() {
-        list1.addEventListener('click', () => {
+function clickAllList() {
+    list1.addEventListener('click', () => {
             input1.click()
         })
-        list2.addEventListener('click', () => {
+    list2.addEventListener('click', () => {
             input2.click()
         })
-        list3.addEventListener('click', () => {
+    list3.addEventListener('click', () => {
             input3.click()
         })
-        list4.addEventListener('click', () => {
+    list4.addEventListener('click', () => {
             input4.click()
         })
-    }clickAllList()
+}clickAllList()
 
-    const correctAns = document.getElementById(`list${arrRandom[3]}`)
 
-    function addPoint (){
-        correctAns.addEventListener('click', ()=>{
-        console.log("hola");
-    
-    correctAns.removeEventListener('click', () => {})
-})
-} addPoint()
 
-    } 
 
-  loadQuestions()
+
+
+} 
+loadQuestions()
+
+
+correctList = document.getElementById(`list${arrRandom[3]}`)
+
+function addPoint() {
+    submitButton.addEventListener('click', () => {
+      let selecAns = document.getElementsByClassName("selectedAnswer")   
+    let numberCorrect = selecAns[0].id[4]; 
+        if (numberCorrect == arrRandom[3]) {
+            score++
+        }
+    }) 
+}addPoint()
 
 
 
@@ -316,17 +333,38 @@ function deselectAns() {
     answElems.forEach(answElem => answElem.checked = false);    
 };
 
+function getSelected() {
+    let answer;
+    answElems.forEach(answElem => {
+        if (answElem.checked) {
+            answer = answElem.id;
+        };
+    });
+    return answer
+};
+getSelected()
+
 function countAnswer() {
 
         submitButton.addEventListener('click', () => {
+        const answer = getSelected();
+        // console.log(answer);
+        // console.log(correctAns);
+    
+    if (answer) {
         ++counterQuestion                              
         answElems.forEach(answElem => {  
         if(answElem.checked) {
+            
         loadQuestions()                   
-        }
-        });
+        }else if(counterQuestion > 9){
+            document.getElementById("quiz").innerHTML=`<h2>Tu puntuación es ${score}</h2>
+            <button id="reload" onclick="location.reload()">Volver a jugar</button>`
+            submitButton.remove()
+            addScore(score)
+        }});
 
-    })
+    }})
 }countAnswer() 
 
 function colourAnswer() {
@@ -362,6 +400,8 @@ function colourAnswer() {
     })
         }
     colourAnswer()
+
+
 
  
 
