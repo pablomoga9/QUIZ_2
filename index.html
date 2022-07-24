@@ -14,7 +14,8 @@
 <body id="body_index">
     <div id="start_container">
         <h1 id="Comenzar">BridgeQuiz!</h1>
-        <h3>Formulario de Registro</h3>
+        <div id="form11">
+            <h3>Formulario de Registro</h3>
         <form id ="form1" action="#" method="POST">
             <label for="email">Email:</label><br>
             <input type="text" id="email" name="email" placeholder="Introduce email..."><br>
@@ -24,8 +25,10 @@
             <input type="password" id="pass2" name="pass2" placeholder="Repite password..."><br>
             <input type="submit" value="Enviar">
         </form>
+        </div>
     
-    
+       
+       <div id="form12">
         <h3>Formulario de Login</h3>
         <form id ="form2" action="#" method="POST">
             <label for="email2">Email:</label><br>
@@ -34,11 +37,13 @@
             <input type="password" id="pass3" name="pass3" placeholder="Introduce password..."><br>
             <input type="submit" value="Enviar">
         </form>
+       </div>
     <a href="./pages/quiz.html"><button id="click">Empezar</button></a>
+    <button id="cli" onclick="signOut()">Log out</button>
     </div>
+    <br><br><br><br>
 
-
-    <div id="start_container">
+    <div id="start_container" class="text_container">
         <canvas id="myChart" width="300px"></canvas>
     </div>
     
