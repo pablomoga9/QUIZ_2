@@ -17,7 +17,6 @@
     <main id="quiz" class="Box">
 
 
-
         <form id="quizCont">
 
             <h2 id="question">Pregunta</h2>
@@ -28,7 +27,7 @@
                     <label for="answer1" id="label1">Respuesta A</label>
                 </li>
 
-                <li id="list2" class="list" >
+                <li id="list2" class="list">
                     <input class="answer" id="answer2" type="radio" name="answer">
                     <label for="answer2" id="label2">Respuesta B</label>
                 </li>
@@ -44,19 +43,24 @@
                 </li>
 
             </ul>
-
+        
+            
         </form>
+        
     </main>
+    
+        <div id="chartContainer" class="chart"><canvas id="myChart" style="background-color:rgb(255, 255, 255)"></canvas></div>
+        
     <button id="submit">Siguiente</button>
 
 
 
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 
-   
+
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
-    
+
     <script src="../script.js"></script>
 </body>
 

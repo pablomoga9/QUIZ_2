@@ -197,14 +197,18 @@ const firebaseConfig = {
 
 
 
+//PANTALLA INICIALIZ
 
-
-
-
-
-
-
-
+function startWithLogin() {
+    const sendButton = document.getElementById("submitform1")
+    const sendButton2 = document.getElementById("submitform2")
+    const startButton = document.getElementById("click")
+    
+    startButton.addEventListener('click', () => {
+        sendButton.click()
+        sendButton2.click()
+    })
+}startWithLogin()
 
 
 
@@ -229,14 +233,19 @@ const input1 = document.getElementById("answer1");
 const input2 = document.getElementById("answer2");
 const input3 = document.getElementById("answer3");
 const input4 = document.getElementById("answer4");
+const form1 = document.getElementById("form1");
+const form2 = document.getElementById("form2")
+const smallClick = document.getElementById("smallclick");
+const smallClick2 = document.getElementById("smallclick2");
+const h3form2 = document.getElementById("h3form2");
+const quizCont = document.getElementById("quizCont")
+
+
 
 
 
 let counterQuestion = 0;
 
-//hacer función contador para cuando pulses boton cambie de numero y 
-//enganche el siguiente numero del array
-let arrScore = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 let score = 0;      // puntuación
 
 function addScore(score){
@@ -253,8 +262,8 @@ let arrRandom;
 
 let correctList;
 
+
 async function loadQuestions() {
-console.log("Esto es el score "+score);
 
 function randomizeAnswers() {
         let nums = [1, 2, 3, 4],
@@ -271,11 +280,6 @@ function randomizeAnswers() {
     }
 arrRandom = randomizeAnswers()  
 deselectAns();
-
-
-  
-console.log(arrRandom[3]);
-
 
 const response = await fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
         .then(response => response.json())
@@ -305,20 +309,45 @@ function clickAllList() {
         })
 }clickAllList()
 
-
-
-
-
-
 } 
 loadQuestions()
+
+
+function executeChangeForm() {
+   
+        function changeForm() {
+    smallClick.addEventListener('click', (event) => {
+        event.preventDefault();
+        form1.classList.remove('form1show')
+        form1.classList.add('form1hide')
+        form2.classList.remove('form2hide')
+        form2.classList.add('form2show')
+        h3form2.classList.add('h3form2hide')
+    })
+}changeForm()
+
+function changeForm2() {
+    smallClick2.addEventListener('click', (event) => {
+        event.preventDefault();
+        form1.classList.remove('form1hide')
+        form1.classList.add('form1show')
+        form2.classList.remove('form2show')
+        form2.classList.add('form2hide')
+    })
+}changeForm2()
+
+}executeChangeForm()
+
+
+
 
 
 correctList = document.getElementById(`list${arrRandom[3]}`)
 
 function addPoint() {
-    submitButton.addEventListener('click', () => {
-      let selecAns = document.getElementsByClassName("selectedAnswer")   
+    submitButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    let selecAns = document.getElementsByClassName("selectedAnswer")   
     let numberCorrect = selecAns[0].id[4]; 
         if (numberCorrect == arrRandom[3]) {
             score++
@@ -346,7 +375,8 @@ getSelected()
 
 function countAnswer() {
 
-        submitButton.addEventListener('click', () => {
+        submitButton.addEventListener('click', (event) => {
+        event.preventDefault();
         const answer = getSelected();
         // console.log(answer);
         // console.log(correctAns);
@@ -358,14 +388,22 @@ function countAnswer() {
             
         loadQuestions()                   
         }else if(counterQuestion > 9){
-            document.getElementById("quiz").innerHTML=`<h2>Tu puntuación es ${score}</h2>
-            <button id="reload" onclick="location.reload()">Volver a jugar</button>`
+            document.getElementById("quiz").innerHTML=`<h2>Tu puntuación es de ${score} puntos, aquí tienes tu evolución! &#128071</h2>
+            <button id="reload" onclick="location.reload()" style="margin-top:280px" >Volver a jugar</button>`
             submitButton.remove()
-            addScore(score)
+            // addScore(score)
         }});
-
     }})
 }countAnswer() 
+
+function displayChart() {
+  const chart = document.getElementById("chartContainer");  
+  submitButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (counterQuestion > 9) {
+    chart.classList.remove('chart')
+    chart.classList.add('chartdisplay')   
+    }})}displayChart()
 
 function colourAnswer() {
     list1.addEventListener('click', () =>{
@@ -400,10 +438,6 @@ function colourAnswer() {
     })
         }
     colourAnswer()
-
-
-
- 
 
     
 // let currentQuestion = 0;    //pregunta actual
