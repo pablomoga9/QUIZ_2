@@ -9,7 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script> -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 </head>
 <body id="body_index">
     <div id="start_container">
@@ -45,11 +47,56 @@
             <input type="password" id="pass3" name="pass3" placeholder="Introduce password..."><br>
             <input id="submitform2" type="submit" value="Enviar">
             <small id="smallclick2"><u>Click para volver a Login</u></small>
+           
         </form>
-    <a href="./pages/quiz.html"><button id="click">Empezar</button></a>
+        <button onclick="login()" id="google"><img src="https://icon-library.com/images/sign-in-with-google-icon/sign-in-with-google-icon-3.jpg"style="height: 30px"> </button><br>
+        <button id="logout">Logout</button>
     </div>
 
+    
+    <main id="quiz" class="cartHide" >
 
+
+        <form id="quizCont">
+
+            <h2 id="question">Pregunta</h2>
+
+            <ul>
+                <li id="list1" class="list">
+                    <input class="answer" id="answer1" type="radio" name="answer">
+                    <label for="answer1" id="label1">Respuesta A</label>
+                </li>
+
+                <li id="list2" class="list">
+                    <input class="answer" id="answer2" type="radio" name="answer">
+                    <label for="answer2" id="label2">Respuesta B</label>
+                </li>
+
+                <li id="list3" class="list">
+                    <input class="answer" id="answer3" type="radio" name="answer">
+                    <label for="answer3" id="label3">Respuesta C</label>
+                </li>
+
+                <li id="list4" class="list">
+                    <input class="answer" id="answer4" type="radio" name="answer">
+                    <label for="answer4" id="label4">Respuesta D</label>
+                </li>
+
+            </ul>
+        
+            
+        </form>
+        
+    </main>
+    <!-- <div class="chartdisplay" id="myChart" id="chartContainer" ></div> -->
+    <div class="chart" id="chart3">
+        <div class="ct-chart ct-golden-section" id="chart1"></div>
+    </div>
+   
+        
+    <button class="btnHide" id="submit">Siguiente</button>
+
+    <!-- <ul id="ranking"></ul> -->
 
     
     <!-- ------------------------------------------------ -->

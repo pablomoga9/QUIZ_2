@@ -18,7 +18,8 @@
     height: 500px;
     overflow: wrap;
     position: relative;
-    top: 100px;
+    top: 0px;
+    margin-top: 95px;
 }
 
 #click{
@@ -51,7 +52,8 @@ body {
 }
 
 #quiz {
-    margin-top: 20px;
+    margin-top: 50px;
+    position: absolute;
 }
 
 
@@ -121,11 +123,26 @@ ul li {
     position: absolute;
     left: 290px;
     top: 160px;
-
 }
 
 #submitform1{
-    display: none;
+    background:linear-gradient(90deg, #0162c8, #55e7fc);
+    background-color: rgb(50, 13, 109);
+    background-size: cover;
+    color: #fff;
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 1.3rem;
+    position: relative;
+    top: 60px;
+    left: 90px;
+    height: 40px;
+    width: 120px;
+    padding: 0;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
 #h3form2{
@@ -136,15 +153,38 @@ ul li {
     display: none;
 }
 
-#submitform2{
+
+.btnShow{
+display: block;
+}
+.btnHide{
     display: none;
 }
-.form2hide {
-    display:none;
-    position: absolute;
-    top: 700px;
-    z-index: 1;
+
+#submitform2{
+    background:linear-gradient(90deg, #0162c8, #55e7fc);
+    background-color: rgb(50, 13, 109);
+    background-size: cover;
+    color: #fff;
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 1.3rem;
+    position: relative;
+    top: 60px;
+    left: 90px;
+    height: 40px;
+    width: 120px;
+    padding: 0;
+    border-radius: 20px;
+    transition: 0.2s;
 }
+    .form2hide {
+    
+        position: absolute;
+        top: 50000px;
+    }
 
 .form2show{
     /* position: absolute; */
@@ -159,15 +199,63 @@ ul li {
     color: rgb(3, 221, 255);
 }
 
+
+#chart1{
+    width: 10%;
+    position:absolute;
+    top: 300px;
+   
+}
+
+/* .chart2{
+    display: none;
+}
+.chartShow{
+    
+} */
+
+.ct-golden-section {
+    
+    width: 300px; 
+   
+    background: yellow; 
+    border-style: solid;
+    
+   
+    border-color: orange; 
+    border-bottom-width: 25px;
+    border-right-width: 39px;
+}
+
 .chart{
     display:none;
+    z-index: -1;
+    
 }
 
 .chartdisplay{
     position:absolute;
-    top: 130px;
+    top: 190px;
     overflow: wrap;
-    z-index: 1;
+    width: 450px;
+    height: 320px;
+
+    /* z-index: 1; */
+}
+
+#google{
+    background: none;
+    background-color: none;
+    background-size: cover;
+    color: #fff;
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 1.3rem;
+    position: absolute;
+    left: 80px;
+    top: 350px;
 }
 
 .selectedAnswer{
@@ -197,6 +285,11 @@ button {
     transition: 0.2s;
 }
 
+#submit {
+    position: absolute;
+    top: 600px;
+}
+
 #result {
     position: relative;
     width: 260px;
@@ -209,6 +302,22 @@ button {
     position: relative;
     top: 100px;
     left: 85px;
+}
+
+#logout {
+    position: absolute;
+    top: 470px;
+    left: 120px;
+    border-radius: 20px;
+    width: 60px;
+    height: 20px;
+    font-size: 15px;
+}
+
+
+
+.cartHide{
+    display: none;
 }
 
 @media screen and (min-height: 780px max-width:1024){
@@ -243,9 +352,11 @@ button {
 
     .chartdisplay{
         position:absolute;
-        top: 130px;
+        top: 190px;
         overflow: wrap;
-        z-index: 1;
+        width: 450px;
+        height: 320px;
+        /* z-index: 1; */
     }
 
     #reload{
@@ -306,6 +417,10 @@ button {
         top: 80px;
     }
 
+
+    .cartHide{
+        display: none;
+    }
     #Comenzar{
         position: absolute;
         top: 50px;
@@ -329,6 +444,11 @@ button {
 
     }
 
+    #submit {
+        position: absolute;
+        top: 650px;
+    }
+
     .form1hide{
 
         position: absolute;
@@ -338,12 +458,18 @@ button {
     }
 
     #submitform1{
-        opacity:0%;
+    position: absolute;
+    top:260px;
+    left: 30px;
     }
 
     #submitform2{
-        opacity:0%;
+    position: absolute;
+    top:260px;
+    left: 30px;
     }
+
+   
     .form2hide {
     
         position: absolute;
@@ -431,6 +557,23 @@ button {
         text-decoration: none;
         color: white;
         transition: 0.2s;
+    }
+
+    #google {
+        position: absolute;
+        left: 290px;
+        top: 360px;
+
+    }
+
+    #logout {
+        position: absolute;
+        top: 470px;
+        left: 352px;
+        border-radius: 20px;
+        width: 60px;
+        height: 20px;
+        font-size: 15px;
     }
 
     .answer {

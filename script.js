@@ -14,10 +14,10 @@ const firebaseConfig = {
 
 
   const db = firebase.firestore();//Referencia a la base datos
+  
+  let provider = new firebase.auth.GoogleAuthProvider();//Posibilidad de logear con google
 
-//   let provider = new firebase.auth.GoogleAuthProvider();//Posibilidad de logear con google
-
-
+  const voidStorage = localStorage.setItem("usuario", "");
   const createUser = (user) => {
     db.collection("usuarios")
       .add(user)
@@ -37,15 +37,141 @@ const firebaseConfig = {
 
 
     let nickName = "";
+    
+
+   
+    let nick = "";
+        async function login (){
+            
+            try{
+                const response = await firebase.auth().signInWithPopup(provider);
+                console.log(response);
+          
+                let newUser = {
+                    email: response.user.email,
+                    name: response.user.displayName,
+                  }
+                 
+                db.collection("usuarios")
+                  .where("email", "==", response.user.email)
+                  .get()
+                  .then((querySnapshot) => {
+                    console.log(querySnapshot);
+                    if(querySnapshot.size == 0){
+                      db.collection("usuarios")
+                      .add(newUser)
+                      .then((docRef) => {
+                        nick = (response.user.email).split('@')[0];
+                        console.log("Document written with ID: ", docRef.id)
+                        quizCart.classList.remove("cartHide");
+                        quizCart.classList.add("Box");
+                        form2.classList.remove("form2show");
+                        form2.classList.remove("form2hide");
+                        submitButton.classList.remove("btnHide");
+                        submitButton.classList.add("btnShow");
+                      })
+                      
+                      .catch((error) => console.error("Error adding document: ", error));
+                    } else{
+                        nick = (response.user.email).split('@')[0];
+                        quizCart.classList.remove("cartHide");
+                        quizCart.classList.add("Box");
+                        form2.classList.remove("form2show");
+                        form2.classList.remove("form2hide");
+                        submitButton.classList.remove("btnHide");
+                        submitButton.classList.add("btnShow");
+                    }
+                  });
+                  let datesArr = [];//Array para meter todas las fechas de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+            let scoresArr = [];////Array para meter todas las puntuaciones de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+            
+            const readDate = () => {//Buscamos el jugador que tenga el nickname con el cual hemos iniciado sesión
+                db.collection("puntuaciones")
+              .where("playerName", "==",nick )//Comprobamos dentro de la colección "puntuaciones" dónde coincide la propiedad "playerName" con el nick que traemos del usuario logeado
+              .get()
+              .then((querySnapshot) => {
+                querySnapshot.forEach((docu) => {
+                    
+                    // datesArr.push(docu.date);//Por cada documento con el nick indicado, pusheamos al array la fecha correspondiente a ese documento
+                    console.log(docu.data().date);
+                    datesArr.push(docu.data().date);
+                })
+              });
+          };
+          readDate();
+            const readScore = ()=>{//Hacemos lo mismo pero ahora para obtener un array de todas las puntuaciones que tenga un jugador con el "nick" que le damos
+                db.collection("puntuaciones")
+                .where("playerName", "==", nick)
+                .get()
+                .then((querySnapshot)=>{
+                    querySnapshot.forEach((docu)=>{
+                        console.log(docu.data().puntuacion);
+                       scoresArr.push(docu.data().puntuacion);
+                    })
+                });
+            };
+            readScore();
+            console.log(datesArr);
+            console.log(scoresArr);
+            // console.log(scoresArr);
+            // console.log(datesArr);
+            var canv = document.getElementById("myChart").getContext("2d");
+            var weatherChart = new Chart(canv,{//Creamos un chart con el array de las fechas que hemos sacado y las puntuaciones de 
+                type:"line",
+                data:{
+                    labels:[datesArr[0],datesArr[1],datesArr[2]],
+                   
+                    datasets:[{
+                        label: "Puntuación",
+                        data:[scoresArr[0],scoresArr[1],scoresArr[2]]
+                       
+                    }]
+                }
+            })
+                return response.user;
+          
+            }catch(error){  
+                console.log(error);
+            }
+
+            
+          }
+
+         
+          const signOutGoogle = async () => {
+            try {
+                let user = await firebase.auth().currentUser;
+                await firebase.auth().signOut();
+                console.log("Sale del sistema: "+user.email);
+                localStorage.clear();
+            } catch (error) {
+                console.log("hubo un error: "+error);
+            }
+          }
+          document.getElementById("logout").addEventListener("click", signOutGoogle);
+          
+          
+          
+         
+    
+
+
+
+
 
 
     //Sign Up
   const signUpUser = (email, password) => {
     
+
       firebase.auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // Signed in
+        form1.classList.remove('form1show')
+        form1.classList.add('form1hide')
+        form2.classList.remove('form2hide')
+        form2.classList.add('form2show')
         let user = userCredential.user;
         console.log(`se ha registrado ${user.email} ID:${user.uid}`)
         alert(`se ha registrado ${user.email} ID:${user.uid}`)
@@ -64,15 +190,32 @@ const firebaseConfig = {
       });
   };
 
-   //Sign in
 
-   const signInUser = (email,password,nick) =>{
-    let datesArr = [];//Array para meter todas las fechas de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+
+
+   //Sign in
+   let datesArr = [];//Array para meter todas las fechas de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
     let scoresArr = [];////Array para meter todas las puntuaciones de las partidas de un jugador concreto y poder mostrarlas después en el gráfico
+   
+   console.log(scoresArr[0]);
+   const signInUser = (email,password,nick) =>{
+   
+    console.log(scoresArr[0]);
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
         // Signed in
         localStorage.setItem("usuario", JSON.stringify(nick));
+        const getLocalStorage = localStorage.getItem("usuario", )
+        if(getLocalStorage != ""){
+            quizCart.classList.remove("cartHide");
+            quizCart.classList.add("Box");
+            form2.classList.remove("form2show");
+            form2.classList.remove("form2hide");
+            submitButton.classList.remove("btnHide");
+            submitButton.classList.add("btnShow");
+        }
+        
+        
         let user = userCredential.user;
         console.log(`se ha logado ${user.email} ID:${user.uid}`)
         alert(`se ha logado ${user.email} ID:${user.uid}`)
@@ -84,10 +227,10 @@ const firebaseConfig = {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((docu) => {
-                
-                // datesArr.push(docu.date);//Por cada documento con el nick indicado, pusheamos al array la fecha correspondiente a ese documento
+                console.log(typeof docu.data().date);
                 console.log(docu.data().date);
-                datesArr.push(docu.data().date);
+                datesArr.push((docu.data().date).toString());//Por cada documento con el nick indicado, pusheamos al array la fecha correspondiente a ese documento
+              
             })
           });
       };
@@ -99,51 +242,52 @@ const firebaseConfig = {
             .then((querySnapshot)=>{
                 querySnapshot.forEach((docu)=>{
                     console.log(docu.data().puntuacion);
-                   scoresArr.push(docu.data().puntuacion);
+                   scoresArr.push(parseInt(docu.data().puntuacion));
+                   
                 })
             });
         };
-        readScore();
+        readScore()
         console.log(datesArr);
-        console.log(scoresArr);
-        // console.log(scoresArr);
-        // console.log(datesArr);
-        var canv = document.getElementById("myChart").getContext("2d");
-        var weatherChart = new Chart(canv,{//Creamos un chart con el array de las fechas que hemos sacado y las puntuaciones de 
-            type:"bar",
-            data:{
-                // labels:[datesArr[0],datesArr[1],datesArr[2]],
-                labels:["Fecha1","Fecha2","Fecha3","Fecha4"] ,
-                datasets:[{
-                    label: "Puntuación",
-                    // data:[scoresArr[0],scoresArr[1],scoresArr[2]]
-                   data: [1,2,4,5]
-                }]
-            }
-        })
-
+        console.log(scoresArr[0]);
+        console.log(datesArr[0]);
+        
+        var data2 = {
+            labels: datesArr,
+            series: [
+                scoresArr
+            ]
+        };
+        var options2 = {
+            width: 200,
+            height: 200,
+            
+            seriesBarDistance: 15
+        };
+        
+        
+        new Chartist.Line('#chart1', data2, options2);
+        Chartist.precision = 0;
+        // let canv = document.getElementById("myChart").getContext("2d");
+        // let weatherChart = new Chart(canv,{//Creamos un chart con el array de las fechas que hemos sacado y las puntuaciones de 
+        //     type:"bar",
+        //     data:{
+        //         labels:[datesArr],
+                
+        //         datasets:[{
+        //             label: "Puntuación",
+        //             data:[scoresArr]
+                   
+        //         }]
+        //     }
+        // })
+        console.log(datesArr[0]);
 
 
       })}
 
 
-    //   document.getElementById("form1").addEventListener("submit",function(event){
-    //     event.preventDefault();
-        
-    //     let email = event.target.elements.email.value;
-    //     let pass = event.target.elements.pass.value;
-    //     let pass2 = event.target.elements.pass2.value;
       
-    //     pass===pass2?signUpUser(email,pass):alert("error password");
-    //   })
-
-    //   document.getElementById("form2").addEventListener("submit",function(event){
-    //     event.preventDefault();
-    //     let email = event.target.elements.email2.value;
-        
-    //     let pass = event.target.elements.pass3.value;
-    //     signInUser(email,pass,email.split('@')[0])
-    // })
 
     //Test de subida de puntuaciones con nombre a Firestore
 
@@ -152,12 +296,40 @@ const firebaseConfig = {
 
 
 
+//Ranking de usuarios====> meter en ul valor de nombre y puntuacion de repaso de documento de colección de puntuaciones
+
+// let orderArray = [];
+// const createRanking = ()=>{
+//     db.collection("puntuaciones")
+//     .get()
+//     .then((querySnapshot)=>{
+//         querySnapshot.forEach((docu)=>{
+//          for(i=0;i<orderArray.length;i++){
+//             if(docu.data().puntuacion>orderArray[i].data().puntuacion){
+//                 orderArray.push(docu.data());
+//                 console.log(docu.data());
+//             }
+//          }
+           
+//          })
+            
+         
+         
+         
+//             let rankingList = document.getElementById("ranking");
+//           let liRanking = document.createElement("li");
+//         liRanking.innerHTML = `
+//         Name: ${docu.data().playerName}        Score: ${docu.data().puntuacion}
+
+//         `
+//            rankingList.appendChild(liRanking);
+//         })
+    
+// };
 
 
-
-
-
-
+// createRanking();
+// console.log(orderArray);
 
 
 
@@ -199,16 +371,7 @@ const firebaseConfig = {
 
 //PANTALLA INICIALIZ
 
-function startWithLogin() {
-    const sendButton = document.getElementById("submitform1")
-    const sendButton2 = document.getElementById("submitform2")
-    const startButton = document.getElementById("click")
-    
-    startButton.addEventListener('click', () => {
-        sendButton.click()
-        sendButton2.click()
-    })
-}startWithLogin()
+
 
 
 
@@ -239,16 +402,62 @@ const smallClick = document.getElementById("smallclick");
 const smallClick2 = document.getElementById("smallclick2");
 const h3form2 = document.getElementById("h3form2");
 const quizCont = document.getElementById("quizCont")
+const quizCart = document.getElementById("quiz");
+const btnForm1 = document.getElementById("submitform1")
+const btnForm2 = document.getElementById("submitform2")
 
 
 
 
+
+
+
+document.getElementById("form1").addEventListener("submit",function(event){
+    event.preventDefault();
+    
+
+   
+
+    let email = event.target.elements.email.value;
+    let pass = event.target.elements.pass.value;
+    let pass2 = event.target.elements.pass2.value;
+   
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(pass,pass2))
+    {
+   
+        pass===pass2?signUpUser(email,pass):alert("error password");
+    
+        
+    }
+    else{
+        alert("Escribe un correo con @ y .com. Tu contraseña debe contener como mínimo 8 caracteres, 1 letra mayúscula, 1 minúscula y 1 número");
+    }
+
+
+    
+  })
+
+  document.getElementById("form2").addEventListener("submit",function(event){
+    event.preventDefault();
+    let email = event.target.elements.email2.value;
+    
+    let pass = event.target.elements.pass3.value;
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+    {
+        signInUser(email,pass,email.split('@')[0]);
+    }
+    else{
+        alert("Escribe un correo con @ y .com");
+    }
+   
+})
 
 let counterQuestion = 0;
 
 let score = 0;      // puntuación
 
-function addScore(score){
+function addScore(){
+    console.log("1");
     let fechaActual = new Date(Date.now()).toDateString();
     createScore({
         playerName: localStorage.getItem("usuario"),
@@ -261,6 +470,22 @@ let arrAnswers = [];
 let arrRandom;
 
 let correctList;
+
+
+btnForm1.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // form1.classList.remove('form1show')
+        // form1.classList.add('form1hide')
+        // form2.classList.remove('form2hide')
+        // form2.classList.add('form2show')
+        })
+btnForm2.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // quizCart.classList.remove("cartHide");
+            // quizCart.classList.add("Box");
+            // submitButton.classList.remove("btnHide");
+            // submitButton.classList.add("btnShow");
+            })
 
 
 async function loadQuestions() {
@@ -318,6 +543,7 @@ function executeChangeForm() {
         function changeForm() {
     smallClick.addEventListener('click', (event) => {
         event.preventDefault();
+        
         form1.classList.remove('form1show')
         form1.classList.add('form1hide')
         form2.classList.remove('form2hide')
@@ -355,7 +581,15 @@ function addPoint() {
     }) 
 }addPoint()
 
+const delay = 500; // anti-rebound for 500ms
+let lastExecution = 0;
 
+function doWait(){
+    if ((lastExecution + delay) < Date.now()){
+       addScore();
+       lastExecution = Date.now() 
+    }
+}
 
 
 function deselectAns() {            
@@ -377,6 +611,7 @@ function countAnswer() {
 
         submitButton.addEventListener('click', (event) => {
         event.preventDefault();
+        
         const answer = getSelected();
         // console.log(answer);
         // console.log(correctAns);
@@ -391,17 +626,18 @@ function countAnswer() {
             document.getElementById("quiz").innerHTML=`<h2>Tu puntuación es de ${score} puntos, aquí tienes tu evolución! &#128071</h2>
             <button id="reload" onclick="location.reload()" style="margin-top:280px" >Volver a jugar</button>`
             submitButton.remove()
-            // addScore(score)
+            doWait();
+            
         }});
     }})
 }countAnswer() 
 
 function displayChart() {
-  const chart = document.getElementById("chartContainer");  
+  const chart = document.getElementById("chart3");  
   submitButton.addEventListener('click', (event) => {
     event.preventDefault()
     if (counterQuestion > 9) {
-    chart.classList.remove('chart')
+     chart.classList.remove('chart')
     chart.classList.add('chartdisplay')   
     }})}displayChart()
 
@@ -527,4 +763,3 @@ function colourAnswer() {
 
 
 //EFECTOS VISUALES
-
