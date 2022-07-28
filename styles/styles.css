@@ -252,10 +252,9 @@ display: block;
     display: block;
     cursor: pointer;
     font-size: 1.1rem;
-    padding: 1.3rem;
     position: absolute;
-    left: 80px;
-    top: 350px;
+    top: 380px;
+    left: 90px;
 }
 
 .selectedAnswer{
@@ -465,8 +464,8 @@ button {
 
     #submitform2{
     position: absolute;
-    top:260px;
-    left: 30px;
+    top:240px;
+    right: 500px;
     }
 
    
@@ -501,11 +500,24 @@ button {
         
     }
 
+    #volverlogin{
+        position: absolute;
+        left: 40px;
+        top: 185px;
+    }
+
+    #smallcuenta{
+        position: absolute;
+        left: -5px;
+        top: 100px;
+        text-decoration: none;
+    }
+
     #smallclick2{
         position: absolute;
-        left: 0px;
-        top: 100px;
-        
+        left: 35px;
+        top: 130px;
+        cursor: pointer;
     }
 
     #smallclick:hover{
@@ -560,10 +572,16 @@ button {
     }
 
     #google {
+        
         position: absolute;
-        left: 290px;
-        top: 360px;
+        top: 380px;
+        left: 310px;
+        width: 90px;
+        height: 30px;
+    }
 
+    #google img{
+        border-radius: 15px;
     }
 
     #logout {

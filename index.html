@@ -18,7 +18,7 @@
         <h1 id="Comenzar">BridgeQuiz!</h1>
         <h3 id="h3form1">Regístrate para guardar tus stats!!</h3>
 
-        <form id ="form1" class="form1show" action="#" method="POST">
+        <form id ="form1" class="form1hide" action="#" method="POST">
             <div class="divforms">
                 <label for="email">Email:</label><br>
                 <input type="text" id="email" name="email" placeholder="tortilla@omelette.io">
@@ -31,7 +31,7 @@
                 <label for="pass2">Repite password:</label><br>
                 <input type="password" id="pass2" name="pass2" placeholder="Holahola1234$">
             </div>
-            <small>¿Aún no tienes cuenta?</small>
+            <small id="volverlogin">Para volver a login</small>
             <small id="smallclick"><u>Click aquí</u></small>
             
             <input id="submitform1" type="submit" value="Enviar">
@@ -39,17 +39,18 @@
     
     
         
-        <form id ="form2" class="form2hide" action="#" method="POST">
+        <form id ="form2" class="form2show" action="#" method="POST">
             <h3 id="h3form2">Sign up</h3>
             <label for="email2">Email:</label><br>
             <input type="email" id="email2" name="email2" placeholder="Introduce email..."><br>
             <label for="pass3">Password:</label><br>
             <input type="password" id="pass3" name="pass3" placeholder="Introduce password..."><br>
             <input id="submitform2" type="submit" value="Enviar">
-            <small id="smallclick2"><u>Click para volver a Login</u></small>
+            <small id="smallcuenta"><u>¿Aún no tienes cuenta?</u></small>
+            <small id="smallclick2"><u>Pulsa aquí</u></small>
            
         </form>
-        <button onclick="login()" id="google"><img src="https://icon-library.com/images/sign-in-with-google-icon/sign-in-with-google-icon-3.jpg"style="height: 30px"> </button><br>
+        <button onclick="login()" id="google"><img src="https://www.drupal.org/files/issues/2020-01-26/google_logo.png"style="height: 30px"> </button><br>
         <button id="logout">Logout</button>
     </div>
 
