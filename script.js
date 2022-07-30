@@ -63,6 +63,7 @@ const firebaseConfig = {
                       .add(newUser)
                       .then((docRef) => {
                         nickName = (response.user.email).split('@')[0];
+                        
                         console.log("Document written with ID: ", docRef.id)
                         quizCart.classList.remove("cartHide");
                         quizCart.classList.add("Box");
@@ -75,6 +76,13 @@ const firebaseConfig = {
                       .catch((error) => console.error("Error adding document: ", error));
                     } else{
                         nickName = (response.user.email).split('@')[0];
+                        swal({
+                            title: `Bienvenido '${nickName}'`,
+                            icon: "success",
+                            text: `Has iniciado sesión con ${response.user.email}`,
+                            buttons: false,
+                            timer: 3000
+                          })
                         quizCart.classList.remove("cartHide");
                         quizCart.classList.add("Box");
                         form2.classList.remove("form2show");
@@ -94,7 +102,7 @@ const firebaseConfig = {
                 querySnapshot.forEach((docu) => {
                     
                     // datesArr.push(docu.date);//Por cada documento con el nick indicado, pusheamos al array la fecha correspondiente a ese documento
-                    console.log(docu.data().date);
+                 
                     datesArr.push(docu.data().date);
                 })
               });
