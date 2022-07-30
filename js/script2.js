@@ -9,7 +9,7 @@ export const firebaseConfig2 = {
 };
 
 
-import * as sc1 from "./script";
+// import * as sc1 from "./script";
     
 
 firebase.initializeApp(sc1.firebaseConfig);

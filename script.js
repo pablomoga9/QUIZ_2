@@ -18,7 +18,7 @@ const firebaseConfig = {
   
   let provider = new firebase.auth.GoogleAuthProvider();//Posibilidad de logear con google
 
-  const voidStorage = localStorage.setItem("usuario", "");
+
   const createUser = (user) => {
     db.collection("usuarios")
       .add(user)
@@ -41,7 +41,7 @@ const firebaseConfig = {
     
 
    
-    let nick = "";
+    
         async function login (){
             
             try{
@@ -62,7 +62,7 @@ const firebaseConfig = {
                       db.collection("usuarios")
                       .add(newUser)
                       .then((docRef) => {
-                        nick = (response.user.email).split('@')[0];
+                        nickName = (response.user.email).split('@')[0];
                         console.log("Document written with ID: ", docRef.id)
                         quizCart.classList.remove("cartHide");
                         quizCart.classList.add("Box");
@@ -74,7 +74,7 @@ const firebaseConfig = {
                       
                       .catch((error) => console.error("Error adding document: ", error));
                     } else{
-                        nick = (response.user.email).split('@')[0];
+                        nickName = (response.user.email).split('@')[0];
                         quizCart.classList.remove("cartHide");
                         quizCart.classList.add("Box");
                         form2.classList.remove("form2show");
@@ -88,7 +88,7 @@ const firebaseConfig = {
             
             const readDate = () => {//Buscamos el jugador que tenga el nickname con el cual hemos iniciado sesión
                 db.collection("puntuaciones")
-              .where("playerName", "==",nick )//Comprobamos dentro de la colección "puntuaciones" dónde coincide la propiedad "playerName" con el nick que traemos del usuario logeado
+              .where("playerName", "==",nickName )//Comprobamos dentro de la colección "puntuaciones" dónde coincide la propiedad "playerName" con el nick que traemos del usuario logeado
               .get()
               .then((querySnapshot) => {
                 querySnapshot.forEach((docu) => {
@@ -102,11 +102,11 @@ const firebaseConfig = {
           readDate();
             const readScore = ()=>{//Hacemos lo mismo pero ahora para obtener un array de todas las puntuaciones que tenga un jugador con el "nick" que le damos
                 db.collection("puntuaciones")
-                .where("playerName", "==", nick)
+                .where("playerName", "==", nickName)
                 .get()
                 .then((querySnapshot)=>{
                     querySnapshot.forEach((docu)=>{
-                        console.log(docu.data().puntuacion);
+                        
                        scoresArr.push(docu.data().puntuacion);
                     })
                 });
@@ -175,19 +175,29 @@ const firebaseConfig = {
         form2.classList.add('form2show')
         let user = userCredential.user;
         console.log(`se ha registrado ${user.email} ID:${user.uid}`)
-        alert(`se ha registrado ${user.email} ID:${user.uid}`)
+       
         // ...
         // Guarda El usuario en Firestore
         createUser({
           id:user.uid,
           email:user.email
         });
+
+        swal({
+            title: `Registrado '${user.email.split('@')[0]}'`,
+            icon: "success",
+            text: "Podrás acceder a rankings y gráficas de tus puntuaciones",
+            button: "Ok",
+          });
   
       })
       .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log("Error en el sistema"+error.message);
+        swal({
+            title: `Usuario ya existente`,
+            icon: "error",
+            text: `Ya existe un usuario con el correo ${user.email}`,
+            button: "Ok",
+          });
       });
   };
 
@@ -205,21 +215,29 @@ const firebaseConfig = {
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
         // Signed in
-        localStorage.setItem("usuario", JSON.stringify(nick));
-        const getLocalStorage = localStorage.getItem("usuario", )
-        if(getLocalStorage != ""){
+        const user = firebase.auth().currentUser;
+       
+        
+       
             quizCart.classList.remove("cartHide");
             quizCart.classList.add("Box");
             form2.classList.remove("form2show");
             form2.classList.remove("form2hide");
             submitButton.classList.remove("btnHide");
             submitButton.classList.add("btnShow");
-        }
         
         
-        let user = userCredential.user;
-        console.log(`se ha logado ${user.email} ID:${user.uid}`)
-        alert(`se ha logado ${user.email} ID:${user.uid}`)
+        
+       
+        
+        swal({
+            title: `Bienvenido '${user.email.split('@')[0]}'`,
+            icon: "success",
+            text: `Has iniciado sesión con ${user.email}`,
+            buttons: false,
+            timer: 3000,
+          });
+        // alert(`se ha logado ${user.email} ID:${user.uid}`)
         console.log(user);
        
         const readDate = () => {//Buscamos el jugador que tenga el nickname con el cual hemos iniciado sesión
@@ -269,22 +287,22 @@ const firebaseConfig = {
         
         new Chartist.Line('#chart1', data2, options2);
         Chartist.precision = 0;
-        // let canv = document.getElementById("myChart").getContext("2d");
-        // let weatherChart = new Chart(canv,{//Creamos un chart con el array de las fechas que hemos sacado y las puntuaciones de 
-        //     type:"bar",
-        //     data:{
-        //         labels:[datesArr],
-                
-        //         datasets:[{
-        //             label: "Puntuación",
-        //             data:[scoresArr]
-                   
-        //         }]
-        //     }
-        // })
+       
         console.log(datesArr[0]);
 
 
+      } 
+      
+      
+      
+      ).catch((error) => {
+        swal({
+            title: `Usuario no encontrado`,
+            icon: "error",
+            text: "Compruebe que ha introducido correctamente el correo y la contraseña",
+            buttons: false,
+            timer: 3000,
+          });
       })}
 
 
@@ -426,12 +444,20 @@ document.getElementById("form1").addEventListener("submit",function(event){
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(pass,pass2))
     {
    
-        pass===pass2?signUpUser(email,pass):alert("error password");
+        pass===pass2?signUpUser(email,pass):swal({ title: "Error en el campo de contraseña",
+        icon: "error",
+        text: "Se debe introducir la misma contraseña en ambos campos",
+        button: "Ok",});
     
         
     }
     else{
-        alert("Escribe un correo con @ y .com. Tu contraseña debe contener como mínimo 8 caracteres, 1 letra mayúscula, 1 minúscula y 1 número");
+        swal({
+            title: "Error en el campo de contraseña o email",
+            icon: "error",
+            text: "El email debe tener '@' y '.com'. La contraseña debe contener al menos 8 caracteres, 1 letra mayúscula, 1 letra minúscula y 1 número",
+            button: "Ok",
+          });
     }
 
 
@@ -448,7 +474,12 @@ document.getElementById("form1").addEventListener("submit",function(event){
         signInUser(email,pass,email.split('@')[0]);
     }
     else{
-        alert("Escribe un correo con @ y .com");
+        swal({
+            title: "Error en el campo de email",
+            icon: "error",
+            text: "El email debe tener '@' y '.com'",
+            button: "Ok",
+          });
     }
    
 })
@@ -459,9 +490,10 @@ let score = 0;      // puntuación
 
 function addScore(){
     console.log("1");
+    const user = firebase.auth().currentUser;
     let fechaActual = new Date(Date.now()).toDateString();
     createScore({
-        playerName: localStorage.getItem("usuario"),
+        playerName: user.email.split('@')[0],
         puntuacion: score,
         date: fechaActual
     })

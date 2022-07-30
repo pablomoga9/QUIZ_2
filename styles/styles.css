@@ -17,7 +17,7 @@
     height: 500px;
     overflow: wrap;
     position: relative;
-    top: 120px;
+    top: 0px;
     margin-top: 95px;
 }
 
@@ -69,6 +69,16 @@ body {
     top: 20px;
 }
 
+.swal-overlay {
+    background-color: rgba(71, 71, 71, 0.45);
+ }
+
+
+ .swal-modal {
+    border: 6px solid rgb(75, 75, 75);
+    width: 50%;
+   border-radius: 40px;
+  }
 #quizCont {
     display: flex;
     flex-direction: column;
@@ -122,7 +132,6 @@ ul li {
     position: absolute;
     left: 290px;
     top: 160px;
-
 }
 
 #submitform1{
@@ -137,7 +146,7 @@ ul li {
     padding: 1.3rem;
     position: relative;
     top: 60px;
-    left: 30px;
+    left: 90px;
     height: 40px;
     width: 120px;
     padding: 0;
@@ -173,19 +182,18 @@ display: block;
     padding: 1.3rem;
     position: relative;
     top: 60px;
-    left: 15px;
+    left: 90px;
     height: 40px;
     width: 120px;
     padding: 0;
     border-radius: 20px;
     transition: 0.2s;
 }
-.form2hide {
-    display:none;
-    position: absolute;
-    top: 700px;
-    z-index: 1;
-}
+    .form2hide {
+    
+        position: absolute;
+        top: 50000px;
+    }
 
 .form2show{
     /* position: absolute; */
@@ -253,13 +261,9 @@ display: block;
     display: block;
     cursor: pointer;
     font-size: 1.1rem;
-    padding: 1.3rem;
-    position: relative;
-    top: 80px;
-    height: 40px;
-    width: 120px;
-    padding: 0;
-    border-radius: 20px;
+    position: absolute;
+    top: 380px;
+    left: 90px;
 }
 
 .selectedAnswer{
@@ -289,6 +293,11 @@ button {
     transition: 0.2s;
 }
 
+#submit {
+    position: absolute;
+    top: 600px;
+}
+
 #result {
     position: relative;
     width: 260px;
@@ -301,6 +310,22 @@ button {
     position: relative;
     top: 100px;
     left: 85px;
+}
+
+#logout {
+    position: absolute;
+    top: 470px;
+    left: 120px;
+    border-radius: 20px;
+    width: 60px;
+    height: 20px;
+    font-size: 15px;
+}
+
+
+
+.cartHide{
+    display: none;
 }
 
 @media screen and (min-height: 780px max-width:1024){
@@ -427,6 +452,11 @@ button {
 
     }
 
+    #submit {
+        position: absolute;
+        top: 650px;
+    }
+
     .form1hide{
 
         position: absolute;
@@ -436,15 +466,18 @@ button {
     }
 
     #submitform1{
-        opacity:100%;
-       
-
+    position: absolute;
+    top:260px;
+    left: 30px;
     }
 
     #submitform2{
-        opacity:100%;
-        
+    position: absolute;
+    top:240px;
+    right: 500px;
     }
+
+   
     .form2hide {
     
         position: absolute;
@@ -476,11 +509,24 @@ button {
         
     }
 
+    #volverlogin{
+        position: absolute;
+        left: 40px;
+        top: 185px;
+    }
+
+    #smallcuenta{
+        position: absolute;
+        left: -5px;
+        top: 100px;
+        text-decoration: none;
+    }
+
     #smallclick2{
         position: absolute;
-        left: 0px;
-        top: 100px;
-        
+        left: 35px;
+        top: 130px;
+        cursor: pointer;
     }
 
     #smallclick:hover{
@@ -532,6 +578,29 @@ button {
         text-decoration: none;
         color: white;
         transition: 0.2s;
+    }
+
+    #google {
+        
+        position: absolute;
+        top: 380px;
+        left: 310px;
+        width: 90px;
+        height: 30px;
+    }
+
+    #google img{
+        border-radius: 15px;
+    }
+
+    #logout {
+        position: absolute;
+        top: 470px;
+        left: 352px;
+        border-radius: 20px;
+        width: 60px;
+        height: 20px;
+        font-size: 15px;
     }
 
     .answer {
