@@ -22,9 +22,15 @@
 <body id="body_index">
     <div id="start_container">
         <h1 id="Comenzar">BridgeQuiz!</h1>
+
+        <h3 id="h3form1">Regístrate para guardar tus stats!!</h3>
+
+        <form id ="form1" class="form1hide" action="#" method="POST">
+
         <!-- <h3 id="h3form1">Regístrate para guardar tus stats!!</h3> -->
 
         <form id="form1" class="form1hide" action="#" method="POST">
+
             <div class="divforms">
                 <label for="email">Email:</label><br>
                 <input type="text" id="email" name="email" placeholder="tortilla@omelette.io">
@@ -40,17 +46,88 @@
             <small id="volverlogin">Para volver a login</small>
             <small id="smallclick"><u>Click aquí</u></small>
 
+            
+            <input id="submitform1" type="submit" value="Enviar">
+        </form>
+    
+        <ol id="ranking"></ol>
+        <!-- <div id="closeRanking">
+            <button onclick="closeRanking()" id="closeRankBtn">X</button>
+        </div> -->
+        <button onclick="orderScores()" id="rankingBtn">Ranking</button>
+        <form id ="form2" class="form2show" action="#" method="POST">
+
+
             <input id="submitform1" type="submit" value="Sign In">
         </form>
 
 
 
         <form id="form2" class="form2show" action="#" method="POST">
+
             <h3 id="h3form2">Sign up</h3>
             <label for="email2">Email:</label><br>
-            <input type="email" id="email2" name="email2" placeholder="Introduce email..."><br>
+            <input type="text" id="email2" name="email2" placeholder="Introduce email..."><br>
             <label for="pass3">Password:</label><br>
             <input type="password" id="pass3" name="pass3" placeholder="Introduce password..."><br>
+
+            <input id="submitform2" type="submit" value="Enviar">
+            <small id="smallcuenta"><u>¿Aún no tienes cuenta?</u></small>
+            <small id="smallclick2"><u>Pulsa aquí</u></small>
+           
+        </form>
+        <button onclick="login()" id="google"><img src="https://www.drupal.org/files/issues/2020-01-26/google_logo.png"style="height: 30px"> </button><br>
+        <button id="logout">Logout</button>
+        
+    </div>
+
+    
+    <main id="quiz" class="cartHide" >
+
+
+        <form id="quizCont">
+
+            <h2 id="question">Pregunta</h2>
+
+            <ul id="questionList">
+                <li id="list1" class="list">
+                    <input class="answer" id="answer1" type="radio" name="answer">
+                    <label for="answer1" id="label1">Respuesta A</label>
+                </li>
+
+                <li id="list2" class="list">
+                    <input class="answer" id="answer2" type="radio" name="answer">
+                    <label for="answer2" id="label2">Respuesta B</label>
+                </li>
+
+                <li id="list3" class="list">
+                    <input class="answer" id="answer3" type="radio" name="answer">
+                    <label for="answer3" id="label3">Respuesta C</label>
+                </li>
+
+                <li id="list4" class="list">
+                    <input class="answer" id="answer4" type="radio" name="answer">
+                    <label for="answer4" id="label4">Respuesta D</label>
+                </li>
+
+            </ul>
+        
+            
+        </form>
+        
+    </main>
+    <!-- <div class="chartdisplay" id="myChart" id="chartContainer" ></div> -->
+    <!-- <div class="chart" id="chart3">
+        <div class="ct-chart ct-golden-section" id="chart1"></div>
+    </div> -->
+   
+        
+    <button class="btnHide" id="submit">Siguiente</button>
+
+    
+
+    
+
             <input id="submitform2" type="submit" value="Log in">
             <small id="smallcuenta"><u>¿Aún no tienes cuenta?</u></small>
             <small id="smallclick2"><u>Pulsa aquí</u></small>
@@ -107,12 +184,10 @@
 
     <!-- <ul id="ranking"></ul> -->
 
-
     <!-- ------------------------------------------------ -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-
-
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
     <script src="./script.js"></script>
