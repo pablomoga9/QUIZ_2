@@ -121,6 +121,7 @@ async function login() {
             ]
         };
         var optionschart = {
+            
             width: 500,
             height: 300,
             high: 10,
@@ -644,11 +645,14 @@ function countAnswer() {
 
 function displayChart() {
     const chart = document.getElementById("chart3");
+    const gira = document.getElementById("gira")
     submitButton.addEventListener('click', (event) => {
         event.preventDefault()
         if (counterQuestion > 9) {
             chart.classList.remove('chart')
             chart.classList.add('chartdisplay')
+            gira.classList.remove('girahide')
+            gira.classList.add('girashow')
         }
         
     })
