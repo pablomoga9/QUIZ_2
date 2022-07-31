@@ -85,6 +85,7 @@ body {
     width: 50%;
    border-radius: 40px;
   }
+
   /* Ranking List */
 #ranking{
     height: 100%;
@@ -98,19 +99,14 @@ body {
     background-color: rgb(50, 13, 109);
     background-size: cover;
     color: rgb(94, 86, 0);
-    border: none;
-    display: block;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 1.3rem;
-    position: relative;
-    top: 278px;
-    left: 200px;
-    height: 30px;
-    width: 90px;
-    padding: 0;
-    border-radius: 20px;
-    transition: 0.2s;
+    position: absolute;
+    top: 89.5%;
+    right: 5%;
+    border-radius: 100px;
+    width: 65px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 #liRank{
@@ -130,25 +126,7 @@ body {
     
 }
 
-#rankingBtn{
-    background:linear-gradient(90deg, #fdfbb0, #d1df02);
-    background-color: rgb(50, 13, 109);
-    background-size: cover;
-    color: rgb(94, 86, 0);
-    border: none;
-    display: block;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 1.3rem;
-    position: relative;
-    top: 225px;
-    left: 530px;
-    height: 40px;
-    width: 120px;
-    padding: 0;
-    border-radius: 20px;
-    transition: 0.2s;
-}
+
 
 #quizCont {
     display: flex;
@@ -168,53 +146,6 @@ body {
     padding: 0;
 }
 
-
-/* Ranking List */
-#ranking{
-    height: 100%;
-    position: absolute;
-    top: 5px;
-    right:20px;
-    width: 100%;
-}
-#rankingBtn{
-    background:linear-gradient(90deg, #fdfbb0, #d1df02);
-    background-color: rgb(50, 13, 109);
-    background-size: cover;
-    color: rgb(94, 86, 0);
-    border: none;
-    display: block;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 1.3rem;
-    position: relative;
-    top: 278px;
-    left: 200px;
-    height: 30px;
-    width: 90px;
-    padding: 0;
-    border-radius: 20px;
-    transition: 0.2s;
-}
-
-#liRank{
-    padding-top: 10px;
-    width: 100%;
-    height: 15%;
-    font-size: 1.3rem;
-    margin: 1rem 0.5rem;
-    background-color: grey;
-    border-radius: 15px;
-}
-
-/* Close Ranking List */
-
-#closeRanking{
-    position:absolute;
-    
-}
-
-
 ul {
     display:flex;
     flex-direction: column;
@@ -233,10 +164,7 @@ ul li {
     width: 100%;
     height: 50px;
     font-size: 1.3rem;
-    margin: 1rem 0.5rem;
-
     margin: 2rem 0.5rem;
-
     background-color: grey;
     border-radius: 15px;
 }
@@ -255,6 +183,7 @@ ul li {
     top:-700px;
 }
 
+
 .form1show{
     /* position: absolute; */
     left: 290px;
@@ -262,13 +191,11 @@ ul li {
 
 }
 
-
 .form1show div input {
     margin: 10px 0 10px 0;
     height:30px;
     background-color: #d5dbe1;
 }
-
 
 .form1hide{
     display: none;
@@ -276,6 +203,8 @@ ul li {
     left: 290px;
     top: 160px;
 }
+
+
 
 #submitform1{
     background:linear-gradient(90deg, #0162c8, #55e7fc);
@@ -294,14 +223,6 @@ ul li {
     width: 120px;
     padding: 0;
     border-radius: 20px;
-
-    transition: 0.2s;
-}
-
-#h3form2{
-    font-size: 1.3rem;
-}
-
 }
 
 #h3form2{
@@ -316,7 +237,6 @@ ul li {
     height: 25px;
 }
 
-
 .h3form2hide{
     display: none;
 }
@@ -324,7 +244,6 @@ ul li {
 .list{
     margin: 20px;
 }
-
 
 .btnShow{
 display: block;
@@ -343,23 +262,13 @@ display: block;
     cursor: pointer;
     font-size: 1.1rem;
     padding: 1.3rem;
-
-    position: relative;
-    top: 60px;
-    left: 90px;
-
     position: absolute;
     top: 430px;
     left: 70px;
-
     height: 40px;
     width: 120px;
     padding: 0;
     border-radius: 20px;
-
-    transition: 0.2s;
-
-
 }
     .form2hide {
     
@@ -382,33 +291,6 @@ display: block;
 
 
 #chart1{
-    width: 10%;
-    position:absolute;
-    top: 300px;
-   
-}
-
-/* .chart2{
-    display: none;
-}
-.chartShow{
-    
-} */
-
-.ct-golden-section {
-    
-    width: 300px; 
-   
-    background: yellow; 
-    border-style: solid;
-    
-   
-    border-color: orange; 
-    border-bottom-width: 25px;
-    border-right-width: 39px;
-}
-
-
     position:relative;
 }
 
@@ -423,7 +305,6 @@ display: block;
 
 
 
-
 .chart{
     display:none;
     z-index: -1;
@@ -431,27 +312,17 @@ display: block;
 }
 
 .chartdisplay{
-    position:absolute;
-    top: 190px;
-    overflow: wrap;
-    width: 450px;
-    height: 320px;
-
     position:relative;
     top: 190px;
     overflow: wrap;
     width: 500px;
     height: 350px;
 
-
     /* z-index: 1; */
 }
 
 #google{
-
-
     
-
     background: none;
     background-color: none;
     background-size: cover;
@@ -461,16 +332,13 @@ display: block;
     cursor: pointer;
     font-size: 1.1rem;
     position: absolute;
-    top: 380px;
+    top: 340px;
     left: 90px;
 }
-
-
 
 #google img{
     border-radius: 15px;
 }
-
 .selectedAnswer{
     background-color: rgb(96, 52, 240);
 }
@@ -490,7 +358,7 @@ button {
     font-size: 1.1rem;
     padding: 1.3rem;
     position: relative;
-    top: 60px;
+    /* top: 60px; */
     height: 40px;
     width: 120px;
     padding: 0;
@@ -500,11 +368,7 @@ button {
 
 #submit {
     position: absolute;
-
-    top: 600px;
-
     top: 620px;
-
 }
 
 #result {
@@ -541,15 +405,6 @@ button {
 }
 
 #logout {
-
-    position: absolute;
-    top: 470px;
-    left: 120px;
-    border-radius: 20px;
-    width: 60px;
-    height: 20px;
-    font-size: 15px;
-
     background:linear-gradient(90deg, #6a7cf6, #3b3b3b);
     position: absolute;
     top: 2%;
@@ -559,7 +414,6 @@ button {
     height: 30px;
     font-size: 15px;
 
-
 }
 
 
@@ -567,17 +421,6 @@ button {
 .cartHide{
     display: none;
 }
-
-
-@media screen and (min-height: 780px max-width:1024){
-
-    #quiz {
-        margin-top: 80px;
-    }
-}
-
-
-
 
 
 /* PC */
@@ -591,30 +434,11 @@ button {
     } */
 
     canvas{
-p
-        width:500px; 
-
         width:450px; 
-
         height:350px;
         margin-top: 8%;
         margin-left: 8px;
     }
-
-
-    .chart{
-        display:none;
-    }
-
-    .chartdisplay{
-        position:absolute;
-        top: 190px;
-        overflow: wrap;
-        width: 450px;
-        height: 320px;
-        /* z-index: 1; */
-    }
-
 
 
     .chartdisplay{
@@ -635,7 +459,6 @@ p
         border-color: orange; 
     }
 
-
     #reload{
         position:relative;
         top: 200px;
@@ -651,25 +474,6 @@ p
         overflow: wrap;
         position: relative;
         top: 40px;
-    }
-    #rankingBtn{
-        background:linear-gradient(90deg, #fdfbb0, #d1df02);
-        background-color: rgb(50, 13, 109);
-        background-size: cover;
-        color: rgb(94, 86, 0);
-        border: none;
-        display: block;
-        cursor: pointer;
-        font-size: 1.1rem;
-        padding: 1.3rem;
-        position: relative;
-        top: 225px;
-        left: 530px;
-        height: 40px;
-        width: 120px;
-        padding: 0;
-        border-radius: 20px;
-        transition: 0.2s;
     }
 
     #click{
@@ -735,13 +539,8 @@ p
 
     .form1show{
         position: absolute;
-
-        left: 290px;
-        top: 160px;
-
         left: 310px;
         top: 120px;
-
 
     }
 
@@ -760,22 +559,14 @@ p
 
     #submitform1{
     position: absolute;
-
-    top:260px;
-    left: 30px;
     top:300px;
     left: 10px;
-
     }
 
     #submitform2{
     position: absolute;
-    top:240px;
-    right: 500px;
-
     top:250px;
     left: 10px;
-
     }
 
    
@@ -788,22 +579,13 @@ p
 
     .form2show{
         position: absolute;
-
-        top:200px;
-
         top:150px;
-
         left: 310px;
         z-index: 1;
     }
 
-
-    .divforms{
-        margin: 20px;
-
     #form2 input {
         margin: 15px 0 15px 0;
-
     }
 
     small{
@@ -814,44 +596,28 @@ p
 
     #smallclick{
         position: absolute;
-
-        left: 60px;
-
         left: 45px;
-
         top: 200px;
         
     }
 
     #volverlogin{
         position: absolute;
-
-        left: 40px;
-        top: 185px;
         left: 20px;
         top: 220px;
-
     }
 
     #smallcuenta{
         position: absolute;
         left: -5px;
-
-        top: 100px;
-
         top: 140px;
-
         text-decoration: none;
     }
 
     #smallclick2{
         position: absolute;
         left: 35px;
-
-        top: 130px;
-
         top: 160px;
-
         cursor: pointer;
     }
 
@@ -868,6 +634,21 @@ p
         width: 670px;
         overflow: wrap;
         padding: 0;
+    }
+
+    #rankingBtn{
+        background:linear-gradient(90deg, #fdfbb0, #d1df02);
+        background-color: rgb(50, 13, 109);
+        background-size: cover;
+        color: rgb(94, 86, 0);
+        position: absolute;
+        top: 83.25%;
+        right: 25%;
+        border-radius: 100px;
+        width: 120px;
+        height: 40px;
+        font-size: 15px;
+        font-weight:bold ;
     }
 
     ul {
@@ -908,31 +689,14 @@ p
 
     #google {
         
-        position: absolute;
-        top: 380px;
-        left: 310px;
         position: relative;
         top: 140px;
         left: 335px;
-
         width: 90px;
         height: 30px;
     }
 
 
-    #google img{
-        border-radius: 15px;
-    }
-
-    #logout {
-        position: absolute;
-        top: 470px;
-        left: 352px;
-        border-radius: 20px;
-        width: 60px;
-        height: 20px;
-        font-size: 15px;
-    }
 
     .answer {
         display:none;
@@ -980,4 +744,3 @@ p
 
 
 }
-
