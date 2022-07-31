@@ -296,7 +296,7 @@ display: block;
 
  .ct-golden-section { 
     position: absolute;                  /*esta es la clase buena */
-    top: 300px;
+    top: 10px;
     width: 300px; 
     background: rgb(111, 168, 255); 
     border-style: solid;
@@ -313,10 +313,10 @@ display: block;
 
 .chartdisplay{
     position:relative;
-    top: 190px;
+    bottom: 420px;
     overflow: wrap;
-    width: 500px;
-    height: 350px;
+    width: 200px;
+    height: 230px;
 
     /* z-index: 1; */
 }
@@ -380,7 +380,10 @@ button {
 }
 
 .ct-chart-line{
-    width:500;
+    width:20%;
+}
+.ct-line{
+    width: 200px;
 }
 
 .ct-label.ct-horizontal.ct-end {
@@ -394,6 +397,19 @@ button {
     max-height: 1em;
     min-width: 50px;
     max-width: 50px;
+  }
+
+  #eje_x {
+    position: absolute;
+    left: 15px;
+    top: 120px;
+    font-size: 20px;
+  }
+  #eje_y {
+    font-size: 20px;
+    position: absolute;
+    left: -55px;
+    top: 10px;
   }
 
 

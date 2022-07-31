@@ -122,6 +122,9 @@ const firebaseConfig = {
             console.log(scoresArr);
             let fechas = datesArr.slice(1, 6)
     
+            var responsiveOptions = 
+                [['screen and (min-width: 641px) and (max-width: 1024px)',{}]]
+
             var datachart = {
                 labels: fechas,
                 series: [scoresArr
@@ -147,7 +150,7 @@ const firebaseConfig = {
                 };
     
             
-            new Chartist.Line('#chart1', datachart, optionschart);
+            new Chartist.Line('#chart1', datachart, optionschart,responsiveOptions);
             // var canv = document.getElementById("myChart").getContext("2d");
                 return response.user;
           
@@ -312,6 +315,22 @@ const firebaseConfig = {
         console.log(scoresArr);
         let fechas = datesArr.slice(1, 6)
 
+
+        var responsiveOptions = [
+            ['screen and (min-width: 641px) and (max-width: 1024px)', {
+              showPoint: false,
+              lineSmooth: false
+            }],
+            ['screen and (max-width: 640px)', {
+            //   showLine: false,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return 'W' + value;
+                }
+              }
+            }]
+          ];
+
         var datachart = {
             labels: fechas,
             series: [scoresArr
@@ -319,8 +338,8 @@ const firebaseConfig = {
         };
         var optionschart = {
             
-            width: 500,
-            height: 300,
+            //  width: 200,
+            //  height: 100,
             high: 10,
             low:0,
             
@@ -337,7 +356,7 @@ const firebaseConfig = {
             };
 
         
-        new Chartist.Line('#chart1', datachart, optionschart);
+        new Chartist.Line('#chart1', datachart, optionschart,responsiveOptions);
         // var canv = document.getElementById("myChart").getContext("2d");
             
       
