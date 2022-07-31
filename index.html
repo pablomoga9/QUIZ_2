@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BridgeQuiz!</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../QUIZ_2.0/assets/images/favicon_io/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +18,13 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 </head>
+
 <body id="body_index">
     <div id="start_container">
         <h1 id="Comenzar">BridgeQuiz!</h1>
         <!-- <h3 id="h3form1">Regístrate para guardar tus stats!!</h3> -->
 
-        <form id ="form1" class="form1hide" action="#" method="POST">
+        <form id="form1" class="form1hide" action="#" method="POST">
             <div class="divforms">
                 <label for="email">Email:</label><br>
                 <input type="text" id="email" name="email" placeholder="tortilla@omelette.io">
@@ -33,13 +39,13 @@
             </div>
             <small id="volverlogin">Para volver a login</small>
             <small id="smallclick"><u>Click aquí</u></small>
-            
+
             <input id="submitform1" type="submit" value="Sign In">
         </form>
-    
-    
-        
-        <form id ="form2" class="form2show" action="#" method="POST">
+
+
+
+        <form id="form2" class="form2show" action="#" method="POST">
             <h3 id="h3form2">Sign up</h3>
             <label for="email2">Email:</label><br>
             <input type="email" id="email2" name="email2" placeholder="Introduce email..."><br>
@@ -48,14 +54,16 @@
             <input id="submitform2" type="submit" value="Log in">
             <small id="smallcuenta"><u>¿Aún no tienes cuenta?</u></small>
             <small id="smallclick2"><u>Pulsa aquí</u></small>
-           
+
         </form>
-        <button onclick="login()" id="google"><img src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo.png"style="height: 30px"></button><br>
-        
+        <button onclick="login()" id="google"><img
+                src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo.png"
+                style="height: 30px"></button><br>
+
     </div>
 
     <button id="logout" onclick="location.reload()">Logout</button>
-    <main id="quiz" class="cartHide" >
+    <main id="quiz" class="cartHide">
 
 
         <form id="quizCont">
@@ -84,8 +92,6 @@
                 </li>
 
             </ul>
-        
-            
         </form>
         
     </main>
@@ -95,20 +101,21 @@
         <p id="eje_y">Puntos</p>
         <p id="eje_x">Partidas totales</p>
     </div>
-   
-        
+    <p class="girahide" id="gira">Para ver tu gráfica accede desde el PC!</p>
+
     <button class="btnHide" id="submit">Siguiente</button>
 
     <!-- <ul id="ranking"></ul> -->
 
-    
+
     <!-- ------------------------------------------------ -->
 
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 
-   
+
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
-<script src="./script.js"></script>
+    <script src="./script.js"></script>
 </body>
+
 </html>

@@ -51,6 +51,12 @@ body {
     margin: 0px;
 }
 
+#Comenzar{
+    position: absolute;
+    left: 82px;
+    top:40px;
+}
+
 #quiz {
     margin-top: 50px;
     position: absolute;
@@ -111,6 +117,20 @@ ul li {
     border-radius: 15px;
 }
 
+.girahide {
+    display: none;
+    font-size: 20px;
+    position: absolute;
+    left: 25px;
+    top: 150px;
+}
+
+.girashow {
+    font-size: 18px;
+    position: relative;
+    top:-700px;
+}
+
 
 .form1show{
     /* position: absolute; */
@@ -154,7 +174,15 @@ ul li {
 }
 
 #h3form2{
+    position: absolute;
+    top: 100px;
+    left: 120px;
     font-size: 1.3rem;
+}
+
+.form2show input {
+    margin: 15px;
+    height: 25px;
 }
 
 .h3form2hide{
@@ -183,8 +211,8 @@ display: block;
     font-size: 1.1rem;
     padding: 1.3rem;
     position: absolute;
-    top: 450px;
-    left: 90px;
+    top: 430px;
+    left: 70px;
     height: 40px;
     width: 120px;
     padding: 0;
@@ -214,8 +242,9 @@ display: block;
     position:relative;
 }
 
- .ct-golden-section {                   /*esta es la clase buena */
-    margin-top: 30px;
+ .ct-golden-section { 
+    position: absolute;                  /*esta es la clase buena */
+    top: 300px;
     width: 300px; 
     background: rgb(111, 168, 255); 
     border-style: solid;
@@ -298,6 +327,25 @@ button {
     top: 80px;
 }
 
+.ct-chart-line{
+    width:500;
+}
+
+.ct-label.ct-horizontal.ct-end {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap;
+    transform: rotate(-30deg);
+    transform-origin: 100% 0;
+    text-align: right;
+    max-height: 1em;
+    min-width: 50px;
+    max-width: 50px;
+  }
+
+
+
 #reload {
     position: relative;
     top: 100px;
@@ -322,14 +370,6 @@ button {
     display: none;
 }
 
-@media screen and (min-height: 780px max-width:1024){
-
-    #quiz {
-        margin-top: 80px;
-    }
-}
-
-
 
 /* PC */
 
@@ -351,11 +391,20 @@ button {
 
     .chartdisplay{
         position:absolute;
-        top: 190px;
+        top: 200px;
         overflow: wrap;
-        width: 530px;
+        width: 500px;
         height: 350px;
         /* z-index: 1; */
+    }
+
+    .ct-golden-section { 
+        position: absolute;                  /*esta es la clase buena */
+        top: 20px;
+        width: 300px; 
+        background: rgb(111, 168, 255); 
+        border-style: solid;
+        border-color: orange; 
     }
 
     #reload{
@@ -604,35 +653,28 @@ button {
         top: 100px;
         left: 290px;
     }
-    .ct-chart-line{
-        width:500;
-    }
 
-    .ct-label.ct-horizontal.ct-end {
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: wrap;
-        transform: rotate(-30deg);
-        transform-origin: 100% 0;
-        text-align: right;
-        max-height: 1em;
-        min-width: 50px;
-        max-width: 50px;
-      }
-
-      #eje_x {
+    #eje_x {
         position: absolute;
-        left: 50px;
-        top: 290px;
+        left: 15px;
+        top: 320px;
         font-size: 20px;
       }
       #eje_y {
         font-size: 20px;
         position: absolute;
         left: -70px;
-        top: 20px;
+        top: 10px;
       }
+
+      .girashow {
+        display: none;
+        font-size: 20px;
+        position: absolute;
+        left: 160px;
+        top: 200px;
+    }
+
 
 }
 
