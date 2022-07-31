@@ -50,6 +50,12 @@ body {
     margin: 0px;
 }
 
+#Comenzar{
+    position: absolute;
+    left: 82px;
+    top:40px;
+}
+
 #quiz {
     margin-top: 50px;
     position: absolute;
@@ -79,6 +85,71 @@ body {
     width: 50%;
    border-radius: 40px;
   }
+  /* Ranking List */
+#ranking{
+    height: 100%;
+    position: absolute;
+    top: 5px;
+    right:20px;
+    width: 100%;
+}
+#rankingBtn{
+    background:linear-gradient(90deg, #fdfbb0, #d1df02);
+    background-color: rgb(50, 13, 109);
+    background-size: cover;
+    color: rgb(94, 86, 0);
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 1.3rem;
+    position: relative;
+    top: 278px;
+    left: 200px;
+    height: 30px;
+    width: 90px;
+    padding: 0;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+#liRank{
+    padding-top: 10px;
+    width: 100%;
+    height: 15%;
+    font-size: 1.3rem;
+    margin: 1rem 0.5rem;
+    background-color: grey;
+    border-radius: 15px;
+}
+
+/* Close Ranking List */
+
+#closeRanking{
+    position:absolute;
+    
+}
+
+#rankingBtn{
+    background:linear-gradient(90deg, #fdfbb0, #d1df02);
+    background-color: rgb(50, 13, 109);
+    background-size: cover;
+    color: rgb(94, 86, 0);
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 1.3rem;
+    position: relative;
+    top: 225px;
+    left: 530px;
+    height: 40px;
+    width: 120px;
+    padding: 0;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
 #quizCont {
     display: flex;
     flex-direction: column;
@@ -163,8 +234,25 @@ ul li {
     height: 50px;
     font-size: 1.3rem;
     margin: 1rem 0.5rem;
+
+    margin: 2rem 0.5rem;
+
     background-color: grey;
     border-radius: 15px;
+}
+
+.girahide {
+    display: none;
+    font-size: 20px;
+    position: absolute;
+    left: 25px;
+    top: 150px;
+}
+
+.girashow {
+    font-size: 18px;
+    position: relative;
+    top:-700px;
 }
 
 .form1show{
@@ -173,6 +261,14 @@ ul li {
     top: 160px;
 
 }
+
+
+.form1show div input {
+    margin: 10px 0 10px 0;
+    height:30px;
+    background-color: #d5dbe1;
+}
+
 
 .form1hide{
     display: none;
@@ -198,6 +294,7 @@ ul li {
     width: 120px;
     padding: 0;
     border-radius: 20px;
+
     transition: 0.2s;
 }
 
@@ -205,8 +302,27 @@ ul li {
     font-size: 1.3rem;
 }
 
+}
+
+#h3form2{
+    position: absolute;
+    top: 100px;
+    left: 120px;
+    font-size: 1.3rem;
+}
+
+.form2show input {
+    margin: 15px;
+    height: 25px;
+}
+
+
 .h3form2hide{
     display: none;
+}
+
+.list{
+    margin: 20px;
 }
 
 
@@ -227,14 +343,23 @@ display: block;
     cursor: pointer;
     font-size: 1.1rem;
     padding: 1.3rem;
+
     position: relative;
     top: 60px;
     left: 90px;
+
+    position: absolute;
+    top: 430px;
+    left: 70px;
+
     height: 40px;
     width: 120px;
     padding: 0;
     border-radius: 20px;
+
     transition: 0.2s;
+
+
 }
     .form2hide {
     
@@ -283,6 +408,22 @@ display: block;
     border-right-width: 39px;
 }
 
+
+    position:relative;
+}
+
+ .ct-golden-section { 
+    position: absolute;                  /*esta es la clase buena */
+    top: 300px;
+    width: 300px; 
+    background: rgb(111, 168, 255); 
+    border-style: solid;
+    border-color: orange; 
+}
+
+
+
+
 .chart{
     display:none;
     z-index: -1;
@@ -296,10 +437,21 @@ display: block;
     width: 450px;
     height: 320px;
 
+    position:relative;
+    top: 190px;
+    overflow: wrap;
+    width: 500px;
+    height: 350px;
+
+
     /* z-index: 1; */
 }
 
 #google{
+
+
+    
+
     background: none;
     background-color: none;
     background-size: cover;
@@ -311,6 +463,12 @@ display: block;
     position: absolute;
     top: 380px;
     left: 90px;
+}
+
+
+
+#google img{
+    border-radius: 15px;
 }
 
 .selectedAnswer{
@@ -342,7 +500,11 @@ button {
 
 #submit {
     position: absolute;
+
     top: 600px;
+
+    top: 620px;
+
 }
 
 #result {
@@ -353,6 +515,25 @@ button {
     top: 80px;
 }
 
+.ct-chart-line{
+    width:500;
+}
+
+.ct-label.ct-horizontal.ct-end {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap;
+    transform: rotate(-30deg);
+    transform-origin: 100% 0;
+    text-align: right;
+    max-height: 1em;
+    min-width: 50px;
+    max-width: 50px;
+  }
+
+
+
 #reload {
     position: relative;
     top: 100px;
@@ -360,6 +541,7 @@ button {
 }
 
 #logout {
+
     position: absolute;
     top: 470px;
     left: 120px;
@@ -367,6 +549,17 @@ button {
     width: 60px;
     height: 20px;
     font-size: 15px;
+
+    background:linear-gradient(90deg, #6a7cf6, #3b3b3b);
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    border-radius: 10px;
+    width: 90px;
+    height: 30px;
+    font-size: 15px;
+
+
 }
 
 
@@ -375,12 +568,15 @@ button {
     display: none;
 }
 
+
 @media screen and (min-height: 780px max-width:1024){
 
     #quiz {
         margin-top: 80px;
     }
 }
+
+
 
 
 
@@ -395,11 +591,16 @@ button {
     } */
 
     canvas{
+p
         width:500px; 
+
+        width:450px; 
+
         height:350px;
         margin-top: 8%;
         margin-left: 8px;
     }
+
 
     .chart{
         display:none;
@@ -413,6 +614,27 @@ button {
         height: 320px;
         /* z-index: 1; */
     }
+
+
+
+    .chartdisplay{
+        position:absolute;
+        top: 200px;
+        overflow: wrap;
+        width: 500px;
+        height: 350px;
+        /* z-index: 1; */
+    }
+
+    .ct-golden-section { 
+        position: absolute;                  /*esta es la clase buena */
+        top: 20px;
+        width: 300px; 
+        background: rgb(111, 168, 255); 
+        border-style: solid;
+        border-color: orange; 
+    }
+
 
     #reload{
         position:relative;
@@ -513,8 +735,13 @@ button {
 
     .form1show{
         position: absolute;
+
         left: 290px;
         top: 160px;
+
+        left: 310px;
+        top: 120px;
+
 
     }
 
@@ -533,14 +760,22 @@ button {
 
     #submitform1{
     position: absolute;
+
     top:260px;
     left: 30px;
+    top:300px;
+    left: 10px;
+
     }
 
     #submitform2{
     position: absolute;
     top:240px;
     right: 500px;
+
+    top:250px;
+    left: 10px;
+
     }
 
    
@@ -553,13 +788,22 @@ button {
 
     .form2show{
         position: absolute;
+
         top:200px;
+
+        top:150px;
+
         left: 310px;
         z-index: 1;
     }
 
+
     .divforms{
         margin: 20px;
+
+    #form2 input {
+        margin: 15px 0 15px 0;
+
     }
 
     small{
@@ -570,28 +814,44 @@ button {
 
     #smallclick{
         position: absolute;
+
         left: 60px;
+
+        left: 45px;
+
         top: 200px;
         
     }
 
     #volverlogin{
         position: absolute;
+
         left: 40px;
         top: 185px;
+        left: 20px;
+        top: 220px;
+
     }
 
     #smallcuenta{
         position: absolute;
         left: -5px;
+
         top: 100px;
+
+        top: 140px;
+
         text-decoration: none;
     }
 
     #smallclick2{
         position: absolute;
         left: 35px;
+
         top: 130px;
+
+        top: 160px;
+
         cursor: pointer;
     }
 
@@ -651,9 +911,14 @@ button {
         position: absolute;
         top: 380px;
         left: 310px;
+        position: relative;
+        top: 140px;
+        left: 335px;
+
         width: 90px;
         height: 30px;
     }
+
 
     #google img{
         border-radius: 15px;
@@ -692,4 +957,27 @@ button {
         left: 290px;
     }
 
+    #eje_x {
+        position: absolute;
+        left: 15px;
+        top: 320px;
+        font-size: 20px;
+      }
+      #eje_y {
+        font-size: 20px;
+        position: absolute;
+        left: -70px;
+        top: 10px;
+      }
+
+      .girashow {
+        display: none;
+        font-size: 20px;
+        position: absolute;
+        left: 160px;
+        top: 200px;
+    }
+
+
 }
+
