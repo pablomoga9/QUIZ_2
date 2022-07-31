@@ -203,7 +203,7 @@ const firebaseConfig = {
         swal({
             title: `Usuario ya existente`,
             icon: "error",
-            text: `Ya existe un usuario con el correo ${user.email}`,
+            text: "Ya existe un usuario con este correo",
             button: "Ok",
           });
       });
@@ -325,38 +325,18 @@ const firebaseConfig = {
 
 //Ranking de usuarios====> meter en ul valor de nombre y puntuacion de repaso de documento de colección de puntuaciones
 
-// let orderArray = [];
-// const createRanking = ()=>{
-//     db.collection("puntuaciones")
-//     .get()
-//     .then((querySnapshot)=>{
-//         querySnapshot.forEach((docu)=>{
-//          for(i=0;i<orderArray.length;i++){
-//             if(docu.data().puntuacion>orderArray[i].data().puntuacion){
-//                 orderArray.push(docu.data());
-//                 console.log(docu.data());
-//             }
-//          }
-           
-//          })
-            
-         
-         
-         
-//             let rankingList = document.getElementById("ranking");
-//           let liRanking = document.createElement("li");
-//         liRanking.innerHTML = `
-//         Name: ${docu.data().playerName}        Score: ${docu.data().puntuacion}
 
-//         `
-//            rankingList.appendChild(liRanking);
-//         })
+  
     
-// };
+
+   
+      
+        
+    
 
 
-// createRanking();
-// console.log(orderArray);
+
+
 
 
 
@@ -428,16 +408,22 @@ const form2 = document.getElementById("form2")
 const smallClick = document.getElementById("smallclick");
 const smallClick2 = document.getElementById("smallclick2");
 const h3form2 = document.getElementById("h3form2");
+const h3form1 = document.getElementById("h3form1")
 const quizCont = document.getElementById("quizCont")
 const quizCart = document.getElementById("quiz");
 const btnForm1 = document.getElementById("submitform1")
 const btnForm2 = document.getElementById("submitform2")
+const rankingBtn = document.getElementById("rankingBtn");
+const ranking = document.getElementById("ranking")
+const startText = document.getElementById("Comenzar")
+const googleBtn = document.getElementById("google");
+const logoutBtn = document.getElementById("logout")
+const closeRanking = document.getElementById("closeRanking");
+const closeRankBtn = document.getElementById("closeRankBtn")
 
-
-
-
-
-
+ranking.style.display = "none";
+// closeRanking.style.display = "none";
+// closeRankBtn.style.display = "none";
 
 document.getElementById("form1").addEventListener("submit",function(event){
     event.preventDefault();
@@ -715,6 +701,57 @@ function colourAnswer() {
     })
         }
     colourAnswer()
+
+
+
+
+    let orderArray = [];
+    const orderScores = ()=>{
+        db.collection("puntuaciones")
+        .get()
+        .then((querySnapshot)=>{
+            querySnapshot.forEach((docu)=>{
+             orderArray.push(docu.data());//Hacer push de cada uno de los objetos de la colección de "puntuaciones" dentro del array
+            })
+            orderArray.sort((p1,p2)=>p2.puntuacion - p1.puntuacion);//Ordenar el array de objetos obtenidos de la colección de "puntuaciones" en base a la propiedad de "puntuación" en orden descendente
+            let rankingList = document.getElementById("ranking");
+            startText.style.display = "none";
+            ranking.style.display = "block";
+            rankingBtn.style.display = "none";
+            form1.classList.remove('form1show')
+            form1.classList.add('form1hide')
+            form2.classList.remove('form2show')
+            form2.classList.add('form2hide')
+            h3form2.classList.add('h3form2hide')
+            h3form1.style.display = "none";
+            googleBtn.style.display = "none";
+            logoutBtn.style.display = "none";
+
+       for(i = 0; i < 5; i++){
+        let liRanking = document.createElement("li");
+        liRanking.setAttribute("id", "liRank");
+        liRanking.innerHTML = `
+        <b>Name:</b> ${orderArray[i].playerName}
+        <b>Score:</b> ${orderArray[i].puntuacion}
+        <b>Date:</b> ${orderArray[i].date}`
+           rankingList.appendChild(liRanking);
+       }
+            })
+         } 
+
+
+         function closeRankingFunc(){
+            let rankingList = document.getElementById("ranking");
+            rankingList.innerHTML = "";
+         }
+
+
+          // CANCEL RANKING BUTTON
+    //  form1.classList.remove('form1show')
+    //  form1.classList.add('form1hide')
+    //  form2.classList.remove('form2hide')
+    //  form2.classList.add('form2show')
+    //  h3form2.classList.add('h3form2hide')
 
     
 // let currentQuestion = 0;    //pregunta actual

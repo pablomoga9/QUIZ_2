@@ -37,8 +37,11 @@
             <input id="submitform1" type="submit" value="Enviar">
         </form>
     
-    
-        
+        <ol id="ranking"></ol>
+        <!-- <div id="closeRanking">
+            <button onclick="closeRanking()" id="closeRankBtn">X</button>
+        </div> -->
+        <button onclick="orderScores()" id="rankingBtn">Ranking</button>
         <form id ="form2" class="form2show" action="#" method="POST">
             <h3 id="h3form2">Sign up</h3>
             <label for="email2">Email:</label><br>
@@ -52,6 +55,7 @@
         </form>
         <button onclick="login()" id="google"><img src="https://www.drupal.org/files/issues/2020-01-26/google_logo.png"style="height: 30px"> </button><br>
         <button id="logout">Logout</button>
+        
     </div>
 
     
@@ -62,7 +66,7 @@
 
             <h2 id="question">Pregunta</h2>
 
-            <ul>
+            <ul id="questionList">
                 <li id="list1" class="list">
                     <input class="answer" id="answer1" type="radio" name="answer">
                     <label for="answer1" id="label1">Respuesta A</label>
@@ -90,14 +94,14 @@
         
     </main>
     <!-- <div class="chartdisplay" id="myChart" id="chartContainer" ></div> -->
-    <div class="chart" id="chart3">
+    <!-- <div class="chart" id="chart3">
         <div class="ct-chart ct-golden-section" id="chart1"></div>
-    </div>
+    </div> -->
    
         
     <button class="btnHide" id="submit">Siguiente</button>
 
-    <!-- <ul id="ranking"></ul> -->
+    
 
     
     <!-- ------------------------------------------------ -->
@@ -106,6 +110,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
-<script src="./script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
